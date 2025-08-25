@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { Event } from '@/lib/events';
@@ -140,7 +141,7 @@ export default function EventBrowser({
 
       <div className="flex flex-wrap gap-4 items-center mb-8 animate-fade-in-up animation-delay-400">
           <Button asChild size="lg" className="rounded-full font-semibold">
-            <Link href="/events/create">
+            <Link href="/login">
               <PlusCircle className="mr-2 h-4 w-4" />
               Create Event
             </Link>

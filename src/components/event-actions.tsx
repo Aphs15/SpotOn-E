@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { Event } from '@/lib/events';
@@ -40,7 +41,7 @@ export default function EventActions({ event }: EventActionsProps) {
     <Card className="p-4 bg-secondary rounded-2xl">
       <div className="flex flex-col gap-4">
         <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full rounded-full font-semibold">
-          <Link href={`/events/${event.id}/book`}>
+          <Link href={`/login`}>
             <Ticket className="mr-2 h-5 w-5" />
             Book Now
           </Link>

@@ -1,3 +1,4 @@
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -138,7 +139,7 @@ export default function CommunityPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {communityGroups.map((group) => (
-                <Link href={`/community/${group.slug}`} key={group.name}>
+                <Link href={`/login`} key={group.name}>
                   <div className="flex items-center justify-between p-3 bg-secondary rounded-lg hover:bg-secondary/80 transition-all duration-300 hover:shadow-md hover:scale-105 cursor-pointer">
                       <div className="flex items-center gap-4">
                           <div className="p-2 bg-primary/10 rounded-full">

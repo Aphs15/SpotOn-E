@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -36,7 +37,7 @@ export default function CreatedEventsPage() {
             </CardDescription>
           </div>
            <Button asChild>
-                <Link href="/events/create">
+                <Link href="/login">
                     <PlusCircle className="mr-2 h-4 w-4" />
                     Create New Event
                 </Link>
