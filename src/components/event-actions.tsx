@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSavedEvents } from '@/hooks/use-saved-events';
 import { cn } from '@/lib/utils';
+import { Card } from './ui/card';
 
 interface EventActionsProps {
   event: Event;
@@ -36,32 +37,35 @@ export default function EventActions({ event }: EventActionsProps) {
   };
 
   return (
-    <div className="flex flex-wrap gap-4 items-center">
-      <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-        <Link href={event.bookingLink} target="_blank" rel="noopener noreferrer">
-          <Ticket className="mr-2 h-5 w-5" />
-          Book Now
-        </Link>
-      </Button>
-      <Button
-        size="lg"
-        variant="outline"
-        onClick={() => toggleSaveEvent(event)}
-        aria-label={isEventSaved(event.id) ? 'Unsave event' : 'Save event'}
-      >
-        <Heart className={cn("mr-2 h-5 w-5", isEventSaved(event.id) && 'fill-red-500 text-red-500')} />
-        {isEventSaved(event.id) ? 'Saved' : 'Save'}
-      </Button>
-      <Button size="lg" variant="outline" onClick={handleAddToCalendar}>
-        <CalendarPlus className="mr-2 h-5 w-5" />
-        Add to Calendar
-      </Button>
-      <Button size="lg" variant="outline" asChild>
-        <Link href={shareUrl} target="_blank" rel="noopener noreferrer">
-          <Share2 className="mr-2 h-5 w-5" />
-          Share to WhatsApp
-        </Link>
-      </Button>
-    </div>
+    <Card className="p-4 bg-secondary">
+      <div className="flex flex-col gap-4">
+        <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full">
+          <Link href={event.bookingLink} target="_blank" rel="noopener noreferrer">
+            <Ticket className="mr-2 h-5 w-5" />
+            Book Now
+          </Link>
+        </Button>
+        <Button
+          size="lg"
+          variant="outline"
+          onClick={() => toggleSaveEvent(event)}
+          aria-label={isEventSaved(event.id) ? 'Unsave event' : 'Save event'}
+          className="w-full"
+        >
+          <Heart className={cn("mr-2 h-5 w-5", isEventSaved(event.id) && 'fill-red-500 text-red-500')} />
+          {isEventSaved(event.id) ? 'Saved' : 'Save'}
+        </Button>
+        <Button size="lg" variant="outline" onClick={handleAddToCalendar} className="w-full">
+          <CalendarPlus className="mr-2 h-5 w-5" />
+          Add to Calendar
+        </Button>
+        <Button size="lg" variant="outline" asChild className="w-full">
+          <Link href={shareUrl} target="_blank" rel="noopener noreferrer">
+            <Share2 className="mr-2 h-5 w-5" />
+            Share
+          </Link>
+        </Button>
+      </div>
+    </Card>
   );
 }

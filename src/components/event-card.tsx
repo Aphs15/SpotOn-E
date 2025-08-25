@@ -31,22 +31,22 @@ export default function EventCard({ event }: EventCardProps) {
   };
 
   return (
-    <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border relative group">
+    <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 border-transparent bg-secondary group">
       <Link href={`/events/${event.id}`} className="block">
         <CardHeader className="p-0 relative">
-          <div className="aspect-[16/10] overflow-hidden">
+          <div className="aspect-[16/10] overflow-hidden rounded-t-lg">
             <Image
               src={event.image}
               alt={event.name}
               width={600}
               height={400}
-              className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+              className="object-cover w-full h-full transition-transform duration-500 ease-in-out group-hover:scale-110"
               data-ai-hint={`${event.category.toLowerCase()} event`}
             />
           </div>
         </CardHeader>
         <CardContent className="p-4 flex-grow">
-          <Badge variant="secondary" className="mb-2 font-semibold">
+          <Badge variant="outline" className="mb-2 font-semibold text-primary border-primary/50">
             <CategoryIcon className="mr-1.5 h-3 w-3" />
             {event.category}
           </Badge>
@@ -56,7 +56,7 @@ export default function EventCard({ event }: EventCardProps) {
         </CardContent>
         <CardFooter className="p-4 pt-0 text-sm text-muted-foreground flex flex-col items-start gap-1.5">
           <div className="flex items-center">
-            <Calendar className="h-4 w-4 mr-2" />
+            <Calendar className="h-4 w-4 mr-2 text-primary" />
             <span>{event.date.toLocaleDateString('en-US', {
                 weekday: 'short',
                 month: 'short',
@@ -65,7 +65,7 @@ export default function EventCard({ event }: EventCardProps) {
             </span>
           </div>
           <div className="flex items-center">
-            <MapPin className="h-4 w-4 mr-2" />
+            <MapPin className="h-4 w-4 mr-2 text-primary" />
             <span>{event.city}</span>
           </div>
         </CardFooter>
@@ -73,11 +73,11 @@ export default function EventCard({ event }: EventCardProps) {
       <Button
         variant="ghost"
         size="icon"
-        className="absolute top-2 right-2 rounded-full h-9 w-9 bg-background/70 hover:bg-background"
+        className="absolute top-3 right-3 rounded-full h-9 w-9 bg-background/70 hover:bg-background backdrop-blur-sm transition-all scale-100 group-hover:scale-110"
         onClick={handleSaveClick}
         aria-label={isEventSaved(event.id) ? 'Unsave event' : 'Save event'}
       >
-        <Heart className={cn("h-5 w-5", isEventSaved(event.id) ? 'fill-red-500 text-red-500' : 'text-primary')} />
+        <Heart className={cn("h-5 w-5 transition-colors", isEventSaved(event.id) ? 'fill-red-500 text-red-500' : 'text-primary/80 hover:text-primary')} />
       </Button>
     </Card>
   );
