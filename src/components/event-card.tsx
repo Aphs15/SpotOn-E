@@ -31,7 +31,7 @@ export default function EventCard({ event }: EventCardProps) {
   };
 
   return (
-    <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 bg-secondary group rounded-2xl">
+    <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 bg-card group rounded-2xl">
       <Link href={`/events/${event.id}`} className="block">
         <CardHeader className="p-0 relative">
           <div className="aspect-[16/10] overflow-hidden rounded-t-2xl">

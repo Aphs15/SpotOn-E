@@ -71,13 +71,13 @@ export default function EventBrowser({
 
   return (
     <div className="container mx-auto px-4 py-8">
-       <div className="relative text-center py-16 md:py-24 animate-fade-in-up rounded-2xl overflow-hidden mb-12 bg-gradient-to-br from-purple-900 via-indigo-900 to-fuchsia-900">
-          <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+       <div className="relative text-center py-16 md:py-24 animate-fade-in-up rounded-2xl overflow-hidden mb-12 bg-primary">
+          <div className="absolute inset-0 bg-black/20"></div>
           <div className="relative z-10">
-            <h1 className="text-4xl md:text-6xl font-bold font-headline text-white tracking-tight">
+            <h1 className="text-4xl md:text-6xl font-bold font-headline text-primary-foreground tracking-tight">
               Event Planning
             </h1>
-            <p className="mt-4 text-lg text-indigo-200 max-w-2xl mx-auto">
+            <p className="mt-4 text-lg text-primary-foreground/90 max-w-2xl mx-auto">
              Find, create, and share amazing events with your community. Your next adventure is just a click away.
             </p>
           </div>
@@ -88,7 +88,7 @@ export default function EventBrowser({
             <Flame className="mr-3 h-7 w-7 text-accent" />
             Trending Events
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {trendingEvents.map((event, i) => (
                 <div key={event.id} className="animate-fade-in-up" style={{animationDelay: `${i * 100 + 200}ms`}}>
                     <EventCard event={event} />
@@ -98,7 +98,7 @@ export default function EventBrowser({
       </div>
 
 
-      <div className="mb-8 p-4 rounded-2xl bg-card/50 border shadow-sm sticky top-20 z-40 backdrop-blur-md animate-fade-in-up animation-delay-400">
+      <div className="mb-8 p-4 rounded-2xl bg-card/80 border shadow-sm sticky top-[4.5rem] z-40 backdrop-blur-md animate-fade-in-up animation-delay-400">
          <h2 className="text-2xl font-bold font-headline mb-4">Find Your Next Event</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="relative">
@@ -156,7 +156,7 @@ export default function EventBrowser({
 
       {filteredEvents.length > 0 ? (
           <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           >
             {filteredEvents.map((event, i) => (
                <div key={event.id} className="animate-fade-in-up" style={{animationDelay: `${i * 100}ms`}}>

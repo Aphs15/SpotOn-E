@@ -16,14 +16,18 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <div className="mr-4 flex items-center">
+        <div className="mr-4 hidden md:flex items-center">
           <Link href="/" className="flex items-center space-x-2 font-bold text-lg">
             <Ticket className="h-6 w-6 text-primary" />
             <span className="font-headline tracking-tight">Event Hopper</span>
           </Link>
         </div>
+        <nav className="hidden md:flex items-center space-x-4">
+          <Button variant="link" asChild><Link href="/">Home</Link></Button>
+          <Button variant="link" asChild><Link href="/community">Community</Link></Button>
+          <Button variant="link" asChild><Link href="/contact">Contact</Link></Button>
+        </nav>
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <nav className="flex items-center">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-9 w-9 rounded-full">
@@ -50,30 +54,30 @@ export default function Header() {
                       <span>Profile</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
+                  <DropdownMenuItem asChild className="md:hidden">
                     <Link href="/">
                       <Home className="mr-2 h-4 w-4" />
                       <span>Home</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
+                  <DropdownMenuItem asChild className="md:hidden">
                     <Link href="/community">
                       <Users className="mr-2 h-4 w-4" />
                       <span>Community</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
+                  <DropdownMenuItem asChild className="md:hidden">
                     <Link href="/contact">
                       <Mail className="mr-2 h-4 w-4" />
                       <span>Contact</span>
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className="md:hidden"/>
                  <DropdownMenuGroup>
                    <DropdownMenuLabel>Organizer Zone</DropdownMenuLabel>
                   <DropdownMenuItem asChild>
-                    <Link href="/events/create">
+                    <Link href="/login">
                       <PlusCircle className="mr-2 h-4 w-4" />
                       <span>Create Event</span>
                     </Link>
@@ -100,7 +104,6 @@ export default function Header() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </nav>
         </div>
       </div>
     </header>

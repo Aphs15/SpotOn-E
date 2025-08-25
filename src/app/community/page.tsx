@@ -60,13 +60,13 @@ const communityGroups = [
 export default function CommunityPage() {
   return (
     <div className="container mx-auto px-4 py-8 animate-fade-in-up">
-      <div className="relative text-center py-16 md:py-24 rounded-2xl overflow-hidden mb-12 bg-gradient-to-br from-purple-900 via-indigo-900 to-fuchsia-900">
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+      <div className="relative text-center py-16 md:py-24 rounded-2xl overflow-hidden mb-12 bg-primary">
+        <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative z-10 animate-fade-in-up">
-          <h1 className="text-4xl md:text-6xl font-bold font-headline text-white tracking-tight">
+          <h1 className="text-4xl md:text-6xl font-bold font-headline text-primary-foreground tracking-tight">
             Join the Conversation
           </h1>
-          <p className="mt-4 text-lg text-indigo-200 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-primary-foreground/90 max-w-2xl mx-auto">
             Connect with other event-goers, share experiences, and get the inside scoop.
           </p>
         </div>
@@ -81,7 +81,7 @@ export default function CommunityPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               {feedPosts.map((post, index) => (
-                <Card key={index} className="p-4 bg-secondary transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+                <Card key={index} className="p-4 bg-card transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg">
                   <div className="flex items-start gap-4">
                     <Avatar>
                       <AvatarImage src={`https://placehold.co/100x100.png`} alt={post.author} data-ai-hint={post.avatarHint} />
