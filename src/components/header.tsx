@@ -1,4 +1,7 @@
-import { Home, Settings, Mail, PlusCircle, Bookmark, Ticket, Users, LayoutDashboard, CalendarCheck, UserPlus, LogIn, User, LogOut } from 'lucide-react';
+
+'use client';
+
+import { Home, Settings, Mail, PlusCircle, Bookmark, Ticket, Users, LayoutDashboard, CalendarCheck, UserPlus, LogIn, User, LogOut, Menu } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import {
@@ -10,109 +13,150 @@ import {
   DropdownMenuTrigger,
   DropdownMenuGroup,
 } from '@/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { ThemeToggle } from './theme-toggle';
+import { useState } from 'react';
+
+const navLinks = [
+    { href: '/', label: 'Home', Icon: Home },
+    { href: '/community', label: 'Community', Icon: Users },
+    { href: '/contact', label: 'Contact', Icon: Mail },
+];
 
 export default function Header() {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const isLoggedIn = true; // This can be replaced with actual auth state
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <div className="mr-4 hidden md:flex items-center">
+        {/* Mobile Nav */}
+        <div className="md:hidden">
+             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+                <SheetTrigger asChild>
+                    <Button variant="ghost" size="icon">
+                        <Menu />
+                        <span className="sr-only">Open Menu</span>
+                    </Button>
+                </SheetTrigger>
+                <SheetContent side="left">
+                    <div className="flex flex-col h-full">
+                        <div className="p-4 border-b">
+                             <Link href="/" className="flex items-center space-x-2 font-bold text-lg" onClick={() => setIsSheetOpen(false)}>
+                                <Ticket className="h-6 w-6 text-primary" />
+                                <span className="font-headline tracking-tight">Event Hopper</span>
+                            </Link>
+                        </div>
+                        <nav className="flex flex-col gap-2 p-4 flex-1">
+                            {navLinks.map(({ href, label, Icon }) => (
+                                <Button key={href} variant="ghost" className="justify-start text-base" asChild onClick={() => setIsSheetOpen(false)}>
+                                    <Link href={href}>
+                                        <Icon className="mr-3" />
+                                        {label}
+                                    </Link>
+                                </Button>
+                            ))}
+                        </nav>
+                        <div className="p-4 border-t">
+                            <ThemeToggle />
+                        </div>
+                    </div>
+                </SheetContent>
+            </Sheet>
+        </div>
+
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center">
           <Link href="/" className="flex items-center space-x-2 font-bold text-lg">
             <Ticket className="h-6 w-6 text-primary" />
             <span className="font-headline tracking-tight">Event Hopper</span>
           </Link>
         </div>
-        <nav className="hidden md:flex items-center space-x-4">
-          <Button variant="link" asChild><Link href="/">Home</Link></Button>
-          <Button variant="link" asChild><Link href="/community">Community</Link></Button>
-          <Button variant="link" asChild><Link href="/contact">Contact</Link></Button>
-        </nav>
-        <div className="flex flex-1 items-center justify-end space-x-4">
-            <ThemeToggle />
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-9 w-9 rounded-full">
-                  <Avatar className="h-9 w-9">
-                    <AvatarImage src="https://placehold.co/100x100.png" alt="User" data-ai-hint="user avatar" />
-                    <AvatarFallback>U</AvatarFallback>
-                  </Avatar>
+        <nav className="hidden md:flex items-center space-x-2 mx-6">
+            {navLinks.map(({ href, label }) => (
+                <Button key={href} variant="link" asChild className="text-muted-foreground hover:text-foreground">
+                    <Link href={href}>{label}</Link>
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end" forceMount>
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">Alex Doe</p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      alex.doe@example.com
-                    </p>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                   <DropdownMenuItem asChild>
-                    <Link href="/profile">
-                      <User className="mr-2 h-4 w-4" />
-                      <span>Profile</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="md:hidden">
-                    <Link href="/">
-                      <Home className="mr-2 h-4 w-4" />
-                      <span>Home</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="md:hidden">
-                    <Link href="/community">
-                      <Users className="mr-2 h-4 w-4" />
-                      <span>Community</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="md:hidden">
-                    <Link href="/contact">
-                      <Mail className="mr-2 h-4 w-4" />
-                      <span>Contact</span>
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator className="md:hidden"/>
-                 <DropdownMenuGroup>
-                   <DropdownMenuLabel>Organizer Zone</DropdownMenuLabel>
-                  <DropdownMenuItem asChild>
-                    <Link href="/login">
-                      <PlusCircle className="mr-2 h-4 w-4" />
-                      <span>Create Event</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/dashboard">
-                      <LayoutDashboard className="mr-2 h-4 w-4" />
-                      <span>Dashboard</span>
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                 <DropdownMenuItem asChild>
-                   <Link href="/login">
-                    <LogIn className="mr-2 h-4 w-4" />
-                    <span>Login</span>
-                   </Link>
-                </DropdownMenuItem>
-                 <DropdownMenuItem asChild>
-                   <Link href="/signup">
-                    <UserPlus className="mr-2 h-4 w-4" />
-                    <span>Sign Up</span>
-                   </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                   <Link href="/login">
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log Out</span>
-                   </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            ))}
+        </nav>
+        
+        <div className="flex flex-1 items-center justify-end space-x-2">
+            <Button asChild className="hidden md:inline-flex rounded-full font-semibold">
+                <Link href="/login">
+                    <PlusCircle className="mr-2" />
+                    Create Event
+                </Link>
+            </Button>
+
+            {isLoggedIn ? (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                        <Avatar className="h-9 w-9">
+                            <AvatarImage src="https://placehold.co/100x100.png" alt="User" data-ai-hint="user avatar" />
+                            <AvatarFallback>U</AvatarFallback>
+                        </Avatar>
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56" align="end" forceMount>
+                        <DropdownMenuLabel className="font-normal">
+                        <div className="flex flex-col space-y-1">
+                            <p className="text-sm font-medium leading-none">Alex Doe</p>
+                            <p className="text-xs leading-none text-muted-foreground">
+                            alex.doe@example.com
+                            </p>
+                        </div>
+                        </DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup>
+                            <DropdownMenuItem asChild>
+                                <Link href="/profile">
+                                    <User className="mr-2" />
+                                    <span>Profile</span>
+                                </Link>
+                            </DropdownMenuItem>
+                             <DropdownMenuItem asChild>
+                                <Link href="/dashboard">
+                                <LayoutDashboard className="mr-2" />
+                                <span>Dashboard</span>
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
+                         <div className="md:hidden">
+                            <DropdownMenuItem asChild>
+                                <Link href="/login">
+                                    <PlusCircle className="mr-2" />
+                                    <span>Create Event</span>
+                                </Link>
+                            </DropdownMenuItem>
+                             <DropdownMenuSeparator/>
+                        </div>
+                        <DropdownMenuItem>
+                           <div className="w-full">
+                             <ThemeToggle />
+                           </div>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem asChild>
+                            <Link href="/login">
+                                <LogOut className="mr-2" />
+                                <span>Log Out</span>
+                            </Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            ) : (
+                 <div className="space-x-2">
+                    <Button variant="ghost" asChild>
+                        <Link href="/login">Login</Link>
+                    </Button>
+                    <Button asChild>
+                        <Link href="/signup">Sign Up</Link>
+                    </Button>
+                </div>
+            )}
         </div>
       </div>
     </header>
