@@ -19,7 +19,7 @@ interface BookingPageProps {
 
 const TICKET_PRICE = 175.00;
 
-export default function BookingPage({ params }: BookingPageProps) {
+export default function BookingPage({ params: { id } }: BookingPageProps) {
   const [event, setEvent] = useState<Event | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [ticketQuantity, setTicketQuantity] = useState(0);
@@ -29,14 +29,14 @@ export default function BookingPage({ params }: BookingPageProps) {
 
   useEffect(() => {
     const fetchEvent = async () => {
-      const eventData = await getEventById(params.id);
+      const eventData = await getEventById(id);
       if (eventData) {
         setEvent(eventData);
       }
       setIsLoading(false);
     };
     fetchEvent();
-  }, [params.id]);
+  }, [id]);
   
   const seatRows = ['A', 'B', 'C', 'D', 'E'];
   const seatsPerRow = 12;
