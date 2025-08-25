@@ -7,12 +7,10 @@ export default async function Home() {
   const categories = await getCategories();
 
   return (
-    <>
-      <EventBrowser
-        initialEvents={events}
-        cities={cities}
-        categories={categories}
-      />
-    </>
+    <EventBrowser
+      initialEvents={events}
+      cities={cities}
+      categories={categories}
+    />
   );
 }
