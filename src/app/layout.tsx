@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import Header from '@/components/header';
 import { Toaster } from '@/components/ui/toaster';
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   title: 'Event Hopper',
@@ -16,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className="h-full" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -30,10 +31,17 @@ export default function RootLayout({
           'min-h-screen bg-background font-body antialiased flex flex-col',
         )}
       >
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Toaster />
-        <SpeedInsights/>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Toaster />
+          <SpeedInsights/>
+        </ThemeProvider>
       </body>
     </html>
   );

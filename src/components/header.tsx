@@ -11,6 +11,7 @@ import {
   DropdownMenuGroup,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { ThemeToggle } from './theme-toggle';
 
 export default function Header() {
   return (
@@ -28,6 +29,7 @@ export default function Header() {
           <Button variant="link" asChild><Link href="/contact">Contact</Link></Button>
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-4">
+            <ThemeToggle />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-9 w-9 rounded-full">
