@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { getCategories, getCities } from '@/lib/events';
+import { Switch } from '@/components/ui/switch';
+import { Info } from 'lucide-react';
 
 export default async function CreateEventPage() {
   const cities = await getCities();
@@ -69,6 +71,30 @@ export default async function CreateEventPage() {
               <Label htmlFor="image">Image URL</Label>
               <Input id="image" placeholder="https://example.com/image.png" />
             </div>
+            
+            <div className="space-y-4 rounded-lg border bg-secondary p-4">
+               <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                    <Label htmlFor="private-event" className="text-base">
+                        Private Event
+                    </Label>
+                    <p className="text-sm text-muted-foreground">
+                        Only invited people or groups can see this event.
+                    </p>
+                </div>
+                <Switch id="private-event" />
+              </div>
+              {/* This section would conditionally render when the switch is on */}
+               <div className="space-y-2">
+                <Label htmlFor="invites">Invite Guests or Groups</Label>
+                <Textarea id="invites" placeholder="Enter emails, usernames, or group names, separated by commas..." />
+                 <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+                    <Info className="h-3 w-3" />
+                    This feature requires a backend to be fully functional.
+                </p>
+              </div>
+            </div>
+
             <Button type="submit" size="lg">Create Event</Button>
           </form>
         </CardContent>
