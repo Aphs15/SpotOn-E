@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import EventCard from './event-card';
 import { Button } from './ui/button';
 import Link from 'next/link';
-import { PlusCircle, Bookmark, Search } from 'lucide-react';
+import { PlusCircle, Bookmark, Search, Flame } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface EventBrowserProps {
@@ -41,6 +41,10 @@ export default function EventBrowser({
         event => categoryFilter === 'all' || event.category === categoryFilter
       );
   }, [initialEvents, searchTerm, cityFilter, categoryFilter]);
+
+  const trendingEvents = useMemo(() => {
+    return initialEvents.slice(0, 4);
+  }, [initialEvents]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -78,7 +82,23 @@ export default function EventBrowser({
           </div>
         </div>
 
-      <div className="mb-8 p-4 rounded-2xl bg-card/50 border shadow-sm sticky top-20 z-40 backdrop-blur-md animate-fade-in-up animation-delay-200">
+      <div className="mb-12 animate-fade-in-up animation-delay-200">
+        <h2 className="text-3xl font-bold font-headline mb-4 flex items-center">
+            <Flame className="mr-3 h-7 w-7 text-accent" />
+            Trending Events
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {trendingEvents.map((event, i) => (
+                <div key={event.id} className="animate-fade-in-up" style={{animationDelay: `${i * 100 + 200}ms`}}>
+                    <EventCard event={event} />
+                </div>
+            ))}
+        </div>
+      </div>
+
+
+      <div className="mb-8 p-4 rounded-2xl bg-card/50 border shadow-sm sticky top-20 z-40 backdrop-blur-md animate-fade-in-up animation-delay-400">
+         <h2 className="text-2xl font-bold font-headline mb-4">Find Your Next Event</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="relative">
              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />

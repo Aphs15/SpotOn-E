@@ -1,4 +1,4 @@
-import { Home, Settings, Mail, PlusCircle, Bookmark, Ticket } from 'lucide-react';
+import { Home, Settings, Mail, PlusCircle, Bookmark, Ticket, Users, LayoutDashboard, CalendarCheck } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import {
@@ -8,6 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuGroup,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
@@ -42,30 +43,58 @@ export default function Header() {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/">
-                    <Home className="mr-2 h-4 w-4" />
-                    <span>Home</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/events/create">
-                    <PlusCircle className="mr-2 h-4 w-4" />
-                    <span>Create Event</span>
-                  </Link>
-                </DropdownMenuItem>
-                 <DropdownMenuItem asChild>
-                  <Link href="/events/saved">
-                    <Bookmark className="mr-2 h-4 w-4" />
-                    <span>Saved Events</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/contact">
-                    <Mail className="mr-2 h-4 w-4" />
-                    <span>Contact</span>
-                  </Link>
-                </DropdownMenuItem>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem asChild>
+                    <Link href="/">
+                      <Home className="mr-2 h-4 w-4" />
+                      <span>Home</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/community">
+                      <Users className="mr-2 h-4 w-4" />
+                      <span>Community</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/contact">
+                      <Mail className="mr-2 h-4 w-4" />
+                      <span>Contact</span>
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                   <DropdownMenuLabel>My Events</DropdownMenuLabel>
+                   <DropdownMenuItem asChild>
+                    <Link href="/events/saved">
+                      <Bookmark className="mr-2 h-4 w-4" />
+                      <span>Saved Events</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/events/created">
+                      <CalendarCheck className="mr-2 h-4 w-4" />
+                      <span>Created Events</span>
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                 <DropdownMenuGroup>
+                   <DropdownMenuLabel>Organizer Zone</DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <Link href="/events/create">
+                      <PlusCircle className="mr-2 h-4 w-4" />
+                      <span>Create Event</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/dashboard">
+                      <LayoutDashboard className="mr-2 h-4 w-4" />
+                      <span>Dashboard</span>
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                    <Link href="/login">Login</Link>
