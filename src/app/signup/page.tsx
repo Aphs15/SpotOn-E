@@ -25,9 +25,19 @@ export default function SignUpPage() {
         </CardHeader>
         <CardContent className="grid gap-4">
            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input id="name" placeholder="Enter your name" required />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="surname">Surname</Label>
+                  <Input id="surname" placeholder="Enter your surname" required />
+                </div>
+              </div>
              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Enter your name" required />
+                <Label htmlFor="year-of-birth">Year of Birth</Label>
+                <Input id="year-of-birth" type="number" placeholder="e.g., 1990" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
