@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Drama, Futbol, Music, Users } from 'lucide-react';
+import { Drama, Dribbble, Music, Users } from 'lucide-react';
 
 export type EventCategory = 'Music' | 'Sports' | 'Theatre' | 'Township Gigs';
 
@@ -17,7 +17,7 @@ export interface Event {
 
 export const categoryIcons: Record<EventCategory, LucideIcon> = {
   Music: Music,
-  Sports: Futbol,
+  Sports: Dribbble,
   Theatre: Drama,
   'Township Gigs': Users,
 };
