@@ -1,13 +1,15 @@
+
 'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Calendar, Edit, Shield, Star, Bookmark, CalendarCheck, Users, Music, Dribbble, Drama, Ticket } from 'lucide-react';
+import { Calendar, Edit, Shield, Star, Bookmark, CalendarCheck, Users, Music, Dribbble, Drama, Ticket, QrCode } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { GoogleIcon, AppleWalletIcon } from '@/components/icons';
 
 const user = {
     name: 'Alex Doe',
@@ -39,6 +41,7 @@ interface Booking {
     eventImage: string;
     imageHint: string;
     seats: string[];
+    tickets: Record<string, number>;
 }
 
 export default function ProfilePage() {
@@ -149,16 +152,41 @@ export default function ProfilePage() {
                            {userBookings.length > 0 ? (
                                 <div className="space-y-4">
                                     {userBookings.map(booking => (
-                                        <Link href={`/events/${booking.eventId}`} key={booking.eventId}>
-                                            <div className="flex items-center gap-4 p-3 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors cursor-pointer">
-                                                <Image src={booking.eventImage} alt={booking.eventName} width={80} height={60} className="rounded-md object-cover aspect-[4/3]" data-ai-hint={booking.imageHint} />
-                                                <div>
-                                                    <p className="font-semibold">{booking.eventName}</p>
-                                                    <p className="text-sm text-muted-foreground">{new Date(booking.eventDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
-                                                    <p className="text-xs text-muted-foreground font-bold">Seats: {booking.seats.join(', ')}</p>
+                                       <Card key={booking.eventId} className="bg-secondary overflow-hidden">
+                                         <div className="flex flex-col sm:flex-row">
+                                           <div className="flex-1 p-4">
+                                                <Link href={`/events/${booking.eventId}`}>
+                                                    <div className="flex items-start gap-4 cursor-pointer">
+                                                        <Image src={booking.eventImage} alt={booking.eventName} width={80} height={80} className="rounded-md object-cover aspect-square" data-ai-hint={booking.imageHint} />
+                                                        <div>
+                                                            <p className="font-bold text-lg">{booking.eventName}</p>
+                                                            <p className="text-sm text-muted-foreground">{new Date(booking.eventDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                                                            <p className="text-sm text-muted-foreground font-bold mt-1">Seats: {booking.seats.join(', ')}</p>
+                                                            <div className="text-xs text-muted-foreground mt-2">
+                                                                {Object.entries(booking.tickets).filter(([, qty]) => qty > 0).map(([name, qty]) => (
+                                                                    <span key={name} className="mr-2">{name} (x{qty})</span>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                                <Separator className="my-3" />
+                                                <div className="flex gap-2">
+                                                    <Button variant="outline" size="sm" className="flex-1">
+                                                        <AppleWalletIcon className="mr-2 h-5 w-5" />
+                                                        Apple Wallet
+                                                    </Button>
+                                                     <Button variant="outline" size="sm" className="flex-1">
+                                                        <GoogleIcon className="mr-2 h-5 w-5" />
+                                                        Google Wallet
+                                                    </Button>
                                                 </div>
-                                            </div>
-                                        </Link>
+                                           </div>
+                                           <div className="bg-background/50 flex items-center justify-center p-4 sm:border-l">
+                                                <QrCode className="h-24 w-24 text-primary" />
+                                           </div>
+                                         </div>
+                                       </Card>
                                     ))}
                                 </div>
                             ) : (

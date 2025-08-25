@@ -1,3 +1,4 @@
+
 'use client';
 
 import { getEventById } from '@/lib/events';
@@ -7,9 +8,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Ticket, Armchair } from 'lucide-react';
+import { Ticket, Armchair, PlusCircle, MinusCircle } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { Separator } from '@/components/ui/separator';
 
 interface BookingPageProps {
   params: {
@@ -17,12 +19,19 @@ interface BookingPageProps {
   };
 }
 
-const TICKET_PRICE = 175.00;
+const ticketTiers = [
+    { name: 'Standard Admission', price: 175.00, description: 'General access to the event.' },
+    { name: 'VIP Access', price: 450.00, description: 'Includes priority entry and exclusive lounge access.' },
+];
 
-export default function BookingPage({ params: { id } }: BookingPageProps) {
+export default function BookingPage({ params }: BookingPageProps) {
+  const { id } = params;
   const [event, setEvent] = useState<Event | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [ticketQuantity, setTicketQuantity] = useState(0);
+  const [ticketQuantities, setTicketQuantities] = useState<Record<string, number>>({
+      'Standard Admission': 0,
+      'VIP Access': 0,
+  });
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const { toast } = useToast();
   const router = useRouter();
@@ -38,24 +47,39 @@ export default function BookingPage({ params: { id } }: BookingPageProps) {
     fetchEvent();
   }, [id]);
   
+  const totalTickets = useMemo(() => Object.values(ticketQuantities).reduce((sum, qty) => sum + qty, 0), [ticketQuantities]);
+
   const seatRows = ['A', 'B', 'C', 'D', 'E'];
   const seatsPerRow = 12;
   const unavailableSeats = useMemo(() => ['A3', 'B5', 'B6', 'C10', 'E4'], []);
   
-  const handleQuantityChange = (value: string) => {
-    const quantity = parseInt(value, 10);
-    setTicketQuantity(quantity);
+  const handleQuantityChange = (tierName: string, amount: number) => {
+    setTicketQuantities(prev => {
+        const newQuantity = Math.max(0, (prev[tierName] || 0) + amount);
+        const currentTotal = Object.values(prev).reduce((sum, qty) => sum + qty, 0) - (prev[tierName] || 0);
+        
+        if (currentTotal + newQuantity > 5) { // Max 5 tickets total
+             toast({
+                title: 'Ticket limit reached',
+                description: 'You can select a maximum of 5 tickets in total.',
+                variant: 'destructive'
+            });
+            return prev;
+        }
+        
+        return { ...prev, [tierName]: newQuantity };
+    });
     setSelectedSeats([]); // Reset seats when quantity changes
   };
 
   const handleSeatClick = (seatId: string) => {
-    if (unavailableSeats.includes(seatId) || ticketQuantity === 0) return;
+    if (unavailableSeats.includes(seatId) || totalTickets === 0) return;
 
     setSelectedSeats(prevSelectedSeats => {
       if (prevSelectedSeats.includes(seatId)) {
         return prevSelectedSeats.filter(s => s !== seatId);
       } else {
-        if (prevSelectedSeats.length < ticketQuantity) {
+        if (prevSelectedSeats.length < totalTickets) {
           return [...prevSelectedSeats, seatId];
         }
         return prevSelectedSeats;
@@ -64,10 +88,10 @@ export default function BookingPage({ params: { id } }: BookingPageProps) {
   };
 
   const handleBooking = () => {
-    if (!event || selectedSeats.length !== ticketQuantity || ticketQuantity === 0) {
+    if (!event || selectedSeats.length !== totalTickets || totalTickets === 0) {
       toast({
         title: 'Booking Incomplete',
-        description: `Please select ${ticketQuantity} seat${ticketQuantity > 1 ? 's' : ''} to match your ticket quantity.`,
+        description: `Please select ${totalTickets} seat${totalTickets > 1 ? 's' : ''} to match your ticket quantity.`,
         variant: 'destructive'
       });
       return;
@@ -80,8 +104,9 @@ export default function BookingPage({ params: { id } }: BookingPageProps) {
       eventImage: event.image,
       imageHint: `${event.category.toLowerCase()} event`,
       seats: selectedSeats,
-      quantity: ticketQuantity,
+      quantity: totalTickets,
       total: totalPrice,
+      tickets: ticketQuantities,
     };
     
     // Simulate saving to a database by using local storage
@@ -96,7 +121,11 @@ export default function BookingPage({ params: { id } }: BookingPageProps) {
     router.push('/profile');
   };
 
-  const totalPrice = (TICKET_PRICE * ticketQuantity).toFixed(2);
+  const totalPrice = useMemo(() => {
+    return ticketTiers.reduce((total, tier) => {
+        return total + (ticketQuantities[tier.name] || 0) * tier.price;
+    }, 0).toFixed(2);
+  }, [ticketQuantities]);
 
   if (isLoading) {
     return <div className="container mx-auto px-4 py-8 text-center">Loading event details...</div>;
@@ -122,23 +151,35 @@ export default function BookingPage({ params: { id } }: BookingPageProps) {
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-6">
               <div>
-                <Label htmlFor="ticket-quantity" className="text-lg font-semibold">1. Select Quantity</Label>
-                <Select onValueChange={handleQuantityChange}>
-                  <SelectTrigger id="ticket-quantity" className="mt-2">
-                    <SelectValue placeholder="Select number of tickets" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {[...Array(5)].map((_, i) => (
-                      <SelectItem key={i + 1} value={`${i + 1}`}>{i + 1} Ticket{i > 0 && 's'}</SelectItem>
+                <Label className="text-lg font-semibold">1. Select Tickets</Label>
+                <div className="space-y-4 mt-2 p-4 border rounded-lg bg-secondary">
+                    {ticketTiers.map(tier => (
+                        <div key={tier.name}>
+                            <div className="flex justify-between items-center">
+                                <div>
+                                    <p className="font-semibold">{tier.name}</p>
+                                    <p className="text-sm text-muted-foreground">R {tier.price.toFixed(2)}</p>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <Button size="icon" variant="outline" className="h-7 w-7 rounded-full" onClick={() => handleQuantityChange(tier.name, -1)}>
+                                        <MinusCircle className="h-4 w-4" />
+                                    </Button>
+                                    <span className="font-bold text-lg w-4 text-center">{ticketQuantities[tier.name] || 0}</span>
+                                    <Button size="icon" variant="outline" className="h-7 w-7 rounded-full" onClick={() => handleQuantityChange(tier.name, 1)}>
+                                        <PlusCircle className="h-4 w-4" />
+                                    </Button>
+                                </div>
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-1">{tier.description}</p>
+                        </div>
                     ))}
-                  </SelectContent>
-                </Select>
+                </div>
               </div>
 
                <div>
                 <h3 className="text-lg font-semibold mb-2">2. Choose Your Seats</h3>
                  <p className="text-sm text-muted-foreground mb-2">
-                    {ticketQuantity > 0 ? `Please select ${ticketQuantity - selectedSeats.length} more seat(s).` : 'Select ticket quantity to enable seat selection.'}
+                    {totalTickets > 0 ? `Please select ${totalTickets - selectedSeats.length} more seat(s).` : 'Select ticket quantity to enable seat selection.'}
                 </p>
                 <div className="p-4 bg-secondary rounded-lg border">
                     <div className="mb-4 p-2 bg-primary/10 text-primary text-center rounded-md font-bold">STAGE</div>
@@ -169,16 +210,6 @@ export default function BookingPage({ params: { id } }: BookingPageProps) {
                     </div>
                 </div>
                </div>
-
-                <div className="space-y-4 pt-4 border-t">
-                    <div className="flex justify-between font-bold text-lg">
-                        <span>Total Price</span>
-                        <span>R {totalPrice}</span>
-                    </div>
-                    <Button size="lg" className="w-full" onClick={handleBooking} disabled={ticketQuantity === 0 || selectedSeats.length !== ticketQuantity}>
-                      Proceed to Payment
-                    </Button>
-                </div>
             </div>
             <div className="space-y-4">
                 <h3 className="text-lg font-semibold">Booking Summary</h3>
@@ -195,15 +226,27 @@ export default function BookingPage({ params: { id } }: BookingPageProps) {
                         <span className="text-muted-foreground">Location:</span>
                         <span className="font-semibold text-right">{event.location}</span>
                     </div>
-                    <div className="flex justify-between">
-                        <span className="text-muted-foreground">Tickets:</span>
-                        <span className="font-semibold">{ticketQuantity || '-'}</span>
-                    </div>
+                     <Separator />
+                     {Object.entries(ticketQuantities).filter(([, qty]) => qty > 0).map(([name, qty]) => (
+                        <div key={name} className="flex justify-between">
+                            <span className="text-muted-foreground">{name} (x{qty})</span>
+                            <span className="font-semibold">R {(ticketTiers.find(t => t.name === name)!.price * qty).toFixed(2)}</span>
+                        </div>
+                     ))}
+                     {totalTickets > 0 && <Separator />}
                     <div className="flex justify-between">
                         <span className="text-muted-foreground">Seats:</span>
                         <span className="font-semibold">{selectedSeats.length > 0 ? selectedSeats.join(', ') : '-'}</span>
                     </div>
+                    <Separator />
+                    <div className="flex justify-between font-bold text-lg">
+                        <span>Total Price</span>
+                        <span>R {totalPrice}</span>
+                    </div>
                 </div>
+                 <Button size="lg" className="w-full mt-4" onClick={handleBooking} disabled={totalTickets === 0 || selectedSeats.length !== totalTickets}>
+                      Proceed to Payment
+                 </Button>
             </div>
           </CardContent>
         </Card>
