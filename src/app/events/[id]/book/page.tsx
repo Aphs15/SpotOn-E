@@ -28,16 +28,15 @@ export default function BookingPage({ params }: BookingPageProps) {
   const router = useRouter();
 
   useEffect(() => {
-    const { id } = params;
     const fetchEvent = async () => {
-      const eventData = await getEventById(id);
+      const eventData = await getEventById(params.id);
       if (eventData) {
         setEvent(eventData);
       }
       setIsLoading(false);
     };
     fetchEvent();
-  }, [params]);
+  }, [params.id]);
   
   const seatRows = ['A', 'B', 'C', 'D', 'E'];
   const seatsPerRow = 12;
