@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Calendar, Edit, Shield, Star } from 'lucide-react';
+import { Calendar, Edit, Shield, Star, Bookmark, CalendarCheck } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -68,14 +68,14 @@ export default function ProfilePage() {
                         <CardHeader>
                             <CardTitle className="flex items-center text-xl">
                                 <Calendar className="mr-2 text-primary" />
-                                Your Upcoming Events
+                                Your Events
                             </CardTitle>
                              <CardDescription>
-                                Events you have saved or booked.
+                                Manage your saved and created events.
                             </CardDescription>
                         </CardHeader>
-                        <CardContent>
-                            {savedEvents.length > 0 ? (
+                        <CardContent className="space-y-4">
+                             {savedEvents.length > 0 ? (
                                 <div className="space-y-4">
                                     {savedEvents.map(event => (
                                         <Link href={`/events/${event.id}`} key={event.id}>
@@ -92,7 +92,20 @@ export default function ProfilePage() {
                             ) : (
                                 <p className="text-muted-foreground">You have no upcoming events.</p>
                             )}
-                            <Button variant="outline" className="mt-4 w-full">View All Saved Events</Button>
+                            <div className="flex flex-col sm:flex-row gap-4 mt-4">
+                                <Button variant="outline" className="w-full" asChild>
+                                    <Link href="/events/saved">
+                                        <Bookmark className="mr-2 h-4 w-4" />
+                                        View All Saved Events
+                                    </Link>
+                                </Button>
+                                <Button variant="outline" className="w-full" asChild>
+                                    <Link href="/events/created">
+                                        <CalendarCheck className="mr-2 h-4 w-4" />
+                                        View Created Events
+                                    </Link>
+                                </Button>
+                            </div>
                         </CardContent>
                     </Card>
                      <Card>

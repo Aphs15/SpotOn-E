@@ -70,22 +70,6 @@ export default function Header() {
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                   <DropdownMenuLabel>My Events</DropdownMenuLabel>
-                   <DropdownMenuItem asChild>
-                    <Link href="/events/saved">
-                      <Bookmark className="mr-2 h-4 w-4" />
-                      <span>Saved Events</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/events/created">
-                      <CalendarCheck className="mr-2 h-4 w-4" />
-                      <span>Created Events</span>
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
                  <DropdownMenuGroup>
                    <DropdownMenuLabel>Organizer Zone</DropdownMenuLabel>
                   <DropdownMenuItem asChild>
