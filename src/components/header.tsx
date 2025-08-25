@@ -1,4 +1,4 @@
-import { Home, Settings, Mail, PlusCircle, Bookmark, Ticket, Users, LayoutDashboard, CalendarCheck, UserPlus, LogIn } from 'lucide-react';
+import { Home, Settings, Mail, PlusCircle, Bookmark, Ticket, Users, LayoutDashboard, CalendarCheck, UserPlus, LogIn, User } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import {
@@ -36,14 +36,20 @@ export default function Header() {
               <DropdownMenuContent className="w-56" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">User</p>
+                    <p className="text-sm font-medium leading-none">Alex Doe</p>
                     <p className="text-xs leading-none text-muted-foreground">
-                      user@example.com
+                      alex.doe@example.com
                     </p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
+                   <DropdownMenuItem asChild>
+                    <Link href="/profile">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="/">
                       <Home className="mr-2 h-4 w-4" />
