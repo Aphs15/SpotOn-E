@@ -11,6 +11,9 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import EventCard from './event-card';
+import { Button } from './ui/button';
+import Link from 'next/link';
+import { PlusCircle, Bookmark } from 'lucide-react';
 
 interface EventBrowserProps {
   initialEvents: Event[];
@@ -84,6 +87,20 @@ export default function EventBrowser({
             </SelectContent>
           </Select>
         </div>
+         <div className="mt-4 flex flex-wrap gap-4 items-center">
+            <Button asChild>
+              <Link href="/events/create">
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Create Event
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href="/events/saved">
+                <Bookmark className="mr-2 h-4 w-4" />
+                View Saved Events
+              </Link>
+            </Button>
+          </div>
       </div>
 
       {filteredEvents.length > 0 ? (
