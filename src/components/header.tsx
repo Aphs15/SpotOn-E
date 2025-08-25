@@ -1,4 +1,4 @@
-import { Home, Settings, Mail, PlusCircle, Bookmark, Ticket, Users, LayoutDashboard, CalendarCheck } from 'lucide-react';
+import { Home, Settings, Mail, PlusCircle, Bookmark, Ticket, Users, LayoutDashboard, CalendarCheck, UserPlus, LogIn } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import {
@@ -97,7 +97,16 @@ export default function Header() {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                   <Link href="/login">Login</Link>
+                   <Link href="/login">
+                    <LogIn className="mr-2 h-4 w-4" />
+                    <span>Login</span>
+                   </Link>
+                </DropdownMenuItem>
+                 <DropdownMenuItem asChild>
+                   <Link href="/signup">
+                    <UserPlus className="mr-2 h-4 w-4" />
+                    <span>Sign Up</span>
+                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -3,11 +3,13 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
 import { FacebookIcon, GoogleIcon } from '@/components/icons';
 import { Separator } from '@/components/ui/separator';
+import Link from 'next/link';
 
 export default function LoginPage() {
   return (
@@ -37,6 +39,14 @@ export default function LoginPage() {
              </p>
            </div>
         </CardContent>
+        <CardFooter className="flex justify-center">
+            <p className="text-sm text-muted-foreground">
+              Don't have an account?{' '}
+              <Button variant="link" asChild className="p-0">
+                <Link href="/signup">Sign Up</Link>
+              </Button>
+            </p>
+        </CardFooter>
       </Card>
     </div>
   );
