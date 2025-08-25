@@ -43,11 +43,11 @@ export default function EventBrowser({
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="text-center py-12">
-        <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">
+      <div className="text-center py-16 bg-card border rounded-lg shadow-sm mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary tracking-tight">
           Find Your Next Experience
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground">
+        <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
           Browse events by city, category, or name. Your next adventure awaits.
         </p>
       </div>

@@ -1,4 +1,4 @@
-import { Home, Settings, Mail, PlusCircle, Bookmark } from 'lucide-react';
+import { Home, Settings, Mail, PlusCircle, Bookmark, Ticket } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import {
@@ -14,18 +14,19 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
+      <div className="container flex h-16 items-center">
         <div className="mr-4 flex items-center">
-          <Link href="/" className="flex items-center space-x-2 font-bold">
-            Event Hopper
+          <Link href="/" className="flex items-center space-x-2 font-bold text-lg">
+            <Ticket className="h-6 w-6 text-primary" />
+            <span className="font-headline tracking-tight">Event Hopper</span>
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                  <Avatar className="h-8 w-8">
+                <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                  <Avatar className="h-9 w-9">
                     <AvatarImage src="https://placehold.co/100x100.png" alt="User" data-ai-hint="user avatar" />
                     <AvatarFallback>U</AvatarFallback>
                   </Avatar>
@@ -66,7 +67,7 @@ export default function Header() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem asChild>
                    <Link href="/login">Login</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>

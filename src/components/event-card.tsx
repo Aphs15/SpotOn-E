@@ -20,7 +20,7 @@ export default function EventCard({ event }: EventCardProps) {
 
   return (
     <Link href={`/events/${event.id}`} className="group block">
-      <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
+      <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1 border">
         <CardHeader className="p-0 relative">
           <div className="aspect-[16/10] overflow-hidden">
             <Image
@@ -34,20 +34,19 @@ export default function EventCard({ event }: EventCardProps) {
           </div>
         </CardHeader>
         <CardContent className="p-4 flex-grow">
-          <Badge variant="secondary" className="mb-2">
-            <CategoryIcon className="mr-1 h-3 w-3" />
+          <Badge variant="secondary" className="mb-2 font-semibold">
+            <CategoryIcon className="mr-1.5 h-3 w-3" />
             {event.category}
           </Badge>
-          <h3 className="text-lg font-bold font-headline leading-tight">
+          <h3 className="text-lg font-bold font-headline leading-tight text-card-foreground">
             {event.name}
           </h3>
         </CardContent>
-        <CardFooter className="p-4 pt-0 text-sm text-muted-foreground flex flex-col items-start gap-1">
+        <CardFooter className="p-4 pt-0 text-sm text-muted-foreground flex flex-col items-start gap-1.5">
           <div className="flex items-center">
             <Calendar className="h-4 w-4 mr-2" />
             <span>{event.date.toLocaleDateString('en-US', {
                 weekday: 'short',
-                year: 'numeric',
                 month: 'short',
                 day: 'numeric',
               })}
