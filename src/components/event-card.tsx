@@ -1,3 +1,5 @@
+'use client';
+
 import type { Event } from '@/lib/events';
 import {
   Card,
@@ -9,7 +11,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Badge } from './ui/badge';
 import { categoryIcons } from '@/lib/events';
-import { Calendar, MapPin } from 'lucide-react';
+import { Calendar, Heart, MapPin } from 'lucide-react';
+import { useSavedEvents } from '@/hooks/use-saved-events';
+import { Button } from './ui/button';
+import { cn } from '@/lib/utils';
 
 interface EventCardProps {
   event: Event;
@@ -17,10 +22,17 @@ interface EventCardProps {
 
 export default function EventCard({ event }: EventCardProps) {
   const CategoryIcon = categoryIcons[event.category];
+  const { isEventSaved, toggleSaveEvent } = useSavedEvents();
+  
+  const handleSaveClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault(); // Prevent link navigation
+    e.stopPropagation();
+    toggleSaveEvent(event);
+  };
 
   return (
-    <Link href={`/events/${event.id}`} className="group block">
-      <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1 border">
+    <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border relative group">
+      <Link href={`/events/${event.id}`} className="block">
         <CardHeader className="p-0 relative">
           <div className="aspect-[16/10] overflow-hidden">
             <Image
@@ -57,7 +69,16 @@ export default function EventCard({ event }: EventCardProps) {
             <span>{event.city}</span>
           </div>
         </CardFooter>
-      </Card>
-    </Link>
+      </Link>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute top-2 right-2 rounded-full h-9 w-9 bg-background/70 hover:bg-background"
+        onClick={handleSaveClick}
+        aria-label={isEventSaved(event.id) ? 'Unsave event' : 'Save event'}
+      >
+        <Heart className={cn("h-5 w-5", isEventSaved(event.id) ? 'fill-red-500 text-red-500' : 'text-primary')} />
+      </Button>
+    </Card>
   );
 }

@@ -2,10 +2,12 @@
 
 import type { Event } from '@/lib/events';
 import { Button } from './ui/button';
-import { CalendarPlus, Share2, Ticket } from 'lucide-react';
+import { CalendarPlus, Share2, Ticket, Heart } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useSavedEvents } from '@/hooks/use-saved-events';
+import { cn } from '@/lib/utils';
 
 interface EventActionsProps {
   event: Event;
@@ -13,6 +15,7 @@ interface EventActionsProps {
 
 export default function EventActions({ event }: EventActionsProps) {
   const { toast } = useToast();
+  const { isEventSaved, toggleSaveEvent } = useSavedEvents();
   const [shareUrl, setShareUrl] = useState('');
 
   useEffect(() => {
@@ -33,12 +36,21 @@ export default function EventActions({ event }: EventActionsProps) {
   };
 
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap gap-4 items-center">
       <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
         <Link href={event.bookingLink} target="_blank" rel="noopener noreferrer">
           <Ticket className="mr-2 h-5 w-5" />
           Book Now
         </Link>
+      </Button>
+      <Button
+        size="lg"
+        variant="outline"
+        onClick={() => toggleSaveEvent(event)}
+        aria-label={isEventSaved(event.id) ? 'Unsave event' : 'Save event'}
+      >
+        <Heart className={cn("mr-2 h-5 w-5", isEventSaved(event.id) && 'fill-red-500 text-red-500')} />
+        {isEventSaved(event.id) ? 'Saved' : 'Save'}
       </Button>
       <Button size="lg" variant="outline" onClick={handleAddToCalendar}>
         <CalendarPlus className="mr-2 h-5 w-5" />
