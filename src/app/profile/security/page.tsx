@@ -18,12 +18,17 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { Textarea } from '@/components/ui/textarea';
 
 export default function SecurityPage() {
     const { toast } = useToast();
     const router = useRouter();
+    const [isPasswordDialog, setIsPasswordDialog] = useState(false);
+    const [isFeedbackDialog, setIsFeedbackDialog] = useState(false);
 
     const handleChangePassword = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -36,14 +41,29 @@ export default function SecurityPage() {
     const handleDeleteAccount = () => {
         // Here you would typically make an API call to delete the user's account.
         // After successful deletion, you would redirect them.
+        setIsPasswordDialog(false);
+        setIsFeedbackDialog(true);
+    };
+    
+    const handleFeedbackSubmit = () => {
+         toast({
+            title: 'Account Deleted',
+            description: 'Your account has been permanently deleted. Thank you for your feedback.',
+            variant: 'destructive',
+        });
+        setIsFeedbackDialog(false);
+        router.push('/');
+    };
+    
+    const handleSkipFeedback = () => {
         toast({
             title: 'Account Deleted',
             description: 'Your account has been permanently deleted.',
             variant: 'destructive',
         });
-        // Redirect to homepage after deletion
+        setIsFeedbackDialog(false);
         router.push('/');
-    };
+    }
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -120,8 +140,8 @@ export default function SecurityPage() {
                                         </AlertDialogHeader>
                                         <AlertDialogFooter>
                                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                        <AlertDialogAction onClick={handleDeleteAccount}>
-                                            Yes, delete my account
+                                        <AlertDialogAction onClick={() => setIsPasswordDialog(true)}>
+                                            Continue
                                         </AlertDialogAction>
                                         </AlertDialogFooter>
                                     </AlertDialogContent>
@@ -131,8 +151,47 @@ export default function SecurityPage() {
                     </div>
                 </CardContent>
             </Card>
+
+            {/* Password Confirmation Dialog */}
+            <Dialog open={isPasswordDialog} onOpenChange={setIsPasswordDialog}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Confirm Account Deletion</DialogTitle>
+                        <DialogDescription>
+                            To finalize, please enter your password. This is the final step and cannot be undone.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="py-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="password-confirm" className="sr-only">Password</Label>
+                            <Input id="password-confirm" type="password" placeholder="Enter your password..." />
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsPasswordDialog(false)}>Cancel</Button>
+                        <Button variant="destructive" onClick={handleDeleteAccount}>Delete My Account</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+             {/* Feedback Dialog */}
+            <Dialog open={isFeedbackDialog} onOpenChange={setIsFeedbackDialog}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>We're sad to see you go</DialogTitle>
+                        <DialogDescription>
+                            Your account has been deleted. Could you share any feedback on how we could improve?
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="py-4">
+                        <Textarea placeholder="Your feedback is greatly appreciated..." />
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={handleSkipFeedback}>Skip</Button>
+                        <Button onClick={handleFeedbackSubmit}>Submit Feedback</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }
-
-    
