@@ -1,7 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { MessageSquare, ThumbsUp, Users, Music, Dribbble, Drama } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { MessageSquare, ThumbsUp, Users, Music, Dribbble, Drama, MoreVertical, BadgeCheck, AlertTriangle } from 'lucide-react';
 import Image from 'next/image';
 
 const communityMembers = [
@@ -19,6 +20,7 @@ const feedPosts = [
     content: "Just got my tickets for the Cape Town International Jazz Festival! Who else is going? Can't wait!",
     likes: 42,
     comments: 18,
+    verified: false,
   },
   {
     author: 'Fiona',
@@ -28,6 +30,7 @@ const feedPosts = [
     imageHint: 'music festival crowd',
     likes: 128,
     comments: 34,
+    verified: false,
   },
   {
     author: 'Bob',
@@ -35,6 +38,7 @@ const feedPosts = [
     content: 'Checked in at FNB Stadium! Any tips for first-timers at the Soweto Derby? Want to make the most of the experience!',
     likes: 15,
     comments: 9,
+    verified: true,
   }
 ];
 
@@ -82,7 +86,25 @@ export default function CommunityPage() {
                       <AvatarFallback>{post.author.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <p className="font-semibold">{post.author}</p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5">
+                          <p className="font-semibold">{post.author}</p>
+                          {post.verified && <BadgeCheck className="h-4 w-4 text-primary" />}
+                        </div>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon" className="h-8 w-8">
+                                    <MoreVertical className="h-4 w-4" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem>
+                                    <AlertTriangle className="mr-2 h-4 w-4" />
+                                    <span>Report</span>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
                       <p className="text-muted-foreground mt-1">{post.content}</p>
                       {post.image && (
                         <div className="mt-3 rounded-lg overflow-hidden border">
