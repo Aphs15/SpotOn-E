@@ -1,23 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { BarChart, LineChart, PieChart, TrendingUp, Users, Ticket, Share2, Heart, Eye } from 'lucide-react';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Bar, BarChart as RechartsBarChart, Line, LineChart as RechartsLineChart, Pie, PieChart as RechartsPieChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
-
-const salesData = [
-  { date: 'Oct 1', sold: 50 },
-  { date: 'Oct 2', sold: 75 },
-  { date: 'Oct 3', sold: 120 },
-  { date: 'Oct 4', sold: 90 },
-  { date: 'Oct 5', sold: 150 },
-  { date: 'Oct 6', sold: 130 },
-  { date: 'Oct 7', sold: 200 },
-];
-
-const engagementData = [
-    { source: 'Saves', value: 450, fill: 'var(--chart-1)' },
-    { source: 'Shares', value: 280, fill: 'var(--chart-2)' },
-    { source: 'Views', value: 1200, fill: 'var(--chart-3)' },
-]
+import { LineChart, PieChart, Ticket, Share2, Heart, Eye } from 'lucide-react';
+import SalesChart from '@/components/sales-chart';
+import EngagementChart from '@/components/engagement-chart';
 
 export default function DashboardPage() {
   return (
@@ -79,17 +63,7 @@ export default function DashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={{}} className="h-[300px] w-full">
-              <RechartsLineChart data={salesData}>
-                <Tooltip
-                  content={<ChartTooltipContent />}
-                  cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 2, strokeDasharray: '3 3' }}
-                />
-                <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                <Line type="monotone" dataKey="sold" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ r: 4, fill: 'hsl(var(--primary))' }} />
-              </RechartsLineChart>
-            </ChartContainer>
+            <SalesChart />
           </CardContent>
         </Card>
         <Card>
@@ -100,12 +74,7 @@ export default function DashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-             <ChartContainer config={{}} className="h-[300px] w-full">
-                 <RechartsPieChart>
-                    <Tooltip content={<ChartTooltipContent nameKey="source" />} />
-                    <Pie data={engagementData} dataKey="value" nameKey="source" cx="50%" cy="50%" outerRadius={100} label />
-                </RechartsPieChart>
-             </ChartContainer>
+             <EngagementChart />
           </CardContent>
         </Card>
       </div>
