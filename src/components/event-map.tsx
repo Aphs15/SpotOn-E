@@ -2,6 +2,8 @@
 
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { useMemo } from 'react';
+import { Card, CardContent } from './ui/card';
+import { AlertTriangle } from 'lucide-react';
 
 const containerStyle = {
   width: '100%',
@@ -20,22 +22,37 @@ interface EventMapProps {
 }
 
 export default function EventMap({ location }: EventMapProps) {
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey:
-      process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'YOUR_API_KEY_HERE',
+    googleMapsApiKey: apiKey || '',
+    preventGoogleFontsLoading: true,
+    // Only attempt to load the script if an API key is provided.
+    skip: !apiKey,
   });
 
   // Since we don't have lat/lng, we'll just center the map.
   // A real implementation would geocode the `location` string.
   const center = useMemo(() => defaultCenter, []);
 
+  if (!apiKey) {
+    return (
+      <div className="h-[400px] w-full bg-muted rounded-lg flex items-center justify-center p-4">
+        <div className="text-center text-muted-foreground">
+           <AlertTriangle className="mx-auto h-8 w-8 mb-2 text-primary" />
+          <p className="font-semibold">Google Maps API Key Missing</p>
+          <p className="text-sm">Please add your NEXT_PUBLIC_GOOGLE_MAPS_API_KEY to see the map.</p>
+        </div>
+      </div>
+    );
+  }
+
   if (loadError) {
     return (
       <div className="h-[400px] w-full bg-destructive/20 rounded-lg flex items-center justify-center text-destructive-foreground p-4">
         <p>
-          Map cannot be loaded right now, sorry. Make sure you have a valid
-          Google Maps API key.
+          Map cannot be loaded right now, sorry. Your API key might be invalid.
         </p>
       </div>
     );
