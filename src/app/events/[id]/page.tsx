@@ -5,6 +5,7 @@ import { Calendar, MapPin } from 'lucide-react';
 import EventActions from '@/components/event-actions';
 import { Badge } from '@/components/ui/badge';
 import { categoryIcons } from '@/lib/events';
+import EventMap from '@/components/event-map';
 
 interface EventPageProps {
   params: {
@@ -66,6 +67,12 @@ export default async function EventPage({ params }: EventPageProps) {
           <p className="text-base md:text-lg leading-relaxed mb-8">
             {event.description}
           </p>
+
+          <div className="my-8">
+             <h2 className="text-2xl font-bold font-headline text-primary mb-4">Location</h2>
+             <EventMap location={`${event.location}, ${event.city}`} />
+           </div>
+
           <EventActions event={event} />
         </div>
       </div>
