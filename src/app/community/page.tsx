@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { MessageSquare, Rss, Users } from 'lucide-react';
+import { MessageSquare, ThumbsUp, Users } from 'lucide-react';
 import Image from 'next/image';
 
 const communityMembers = [
@@ -10,14 +10,40 @@ const communityMembers = [
   { name: 'Charlie', image: 'https://placehold.co/100x100.png', hint: 'person nature' },
   { name: 'Diana', image: 'https://placehold.co/100x100.png', hint: 'woman portrait' },
   { name: 'Ethan', image: 'https://placehold.co/100x100.png', hint: 'man hiking' },
-  { name: 'Fiona', image: 'https://placehold.co/100x100.png', hint: 'woman city' },
 ];
 
-const forumTopics = [
-  { title: 'Best venues for live music in Cape Town?', replies: 12, author: 'Alice' },
-  { title: 'Tips for organizing a successful sports event', replies: 8, author: 'Bob' },
-  { title: 'Anyone going to the Jazz Festival next month?', replies: 25, author: 'Diana' },
+const feedPosts = [
+  {
+    author: 'Diana',
+    avatarHint: 'woman portrait',
+    content: "Just got my tickets for the Cape Town International Jazz Festival! Who else is going? Can't wait!",
+    likes: 42,
+    comments: 18,
+  },
+  {
+    author: 'Fiona',
+    avatarHint: 'woman city',
+    content: "Rocking the Daisies was absolutely epic last weekend! Here's a shot from the main stage. The energy was unreal.",
+    image: 'https://placehold.co/600x400.png',
+    imageHint: 'music festival crowd',
+    likes: 128,
+    comments: 34,
+  },
+  {
+    author: 'Bob',
+    avatarHint: 'man glasses',
+    content: 'Any tips for first-timers at the Soweto Derby? Want to make the most of the experience!',
+    likes: 15,
+    comments: 9,
+  }
 ];
+
+const eventDiscussions = [
+  { title: "Who's going to the Cape Town Jazz Festival?", event: 'Cape Town International Jazz Festival', replies: 78 },
+  { title: 'Best pre-game spot near FNB Stadium?', event: 'Soweto Derby', replies: 45 },
+  { title: 'The Lion King Meetup - Act 1 Intermission', event: 'The Lion King', replies: 22 },
+];
+
 
 export default function CommunityPage() {
   return (
@@ -38,55 +64,39 @@ export default function CommunityPage() {
         <div className="lg:col-span-2 space-y-8">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <MessageSquare className="mr-2 text-primary" />
-                Latest Forum Topics
-              </CardTitle>
-              <CardDescription>
-                Jump into the latest discussions from the community.
-              </CardDescription>
+              <CardTitle>Community Feed</CardTitle>
+              <CardDescription>See what's happening in the Event Hopper community.</CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {forumTopics.map((topic, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-secondary rounded-lg">
-                    <div>
-                      <h4 className="font-semibold">{topic.title}</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Posted by {topic.author}
-                      </p>
+            <CardContent className="space-y-6">
+              {feedPosts.map((post, index) => (
+                <Card key={index} className="p-4 bg-secondary">
+                  <div className="flex items-start gap-4">
+                    <Avatar>
+                      <AvatarImage src={`https://placehold.co/100x100.png`} alt={post.author} data-ai-hint={post.avatarHint} />
+                      <AvatarFallback>{post.author.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <p className="font-semibold">{post.author}</p>
+                      <p className="text-muted-foreground mt-1">{post.content}</p>
+                      {post.image && (
+                        <div className="mt-3 rounded-lg overflow-hidden border">
+                          <Image src={post.image} width={600} height={400} alt="Post image" data-ai-hint={post.imageHint} className="w-full h-auto" />
+                        </div>
+                      )}
+                      <div className="flex items-center gap-6 mt-3 text-muted-foreground">
+                        <Button variant="ghost" size="sm" className="flex items-center gap-2">
+                          <ThumbsUp className="h-4 w-4" />
+                          <span>{post.likes}</span>
+                        </Button>
+                        <Button variant="ghost" size="sm" className="flex items-center gap-2">
+                          <MessageSquare className="h-4 w-4" />
+                          <span>{post.comments}</span>
+                        </Button>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-bold text-lg">{topic.replies}</p>
-                      <p className="text-xs text-muted-foreground">Replies</p>
-                    </div>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Rss className="mr-2 text-primary" />
-                Community Blog
-              </CardTitle>
-              <CardDescription>
-                Stories, tips, and highlights from the Event Hopper world.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-               <div className="flex flex-col md:flex-row gap-4 items-center">
-                  <div className="w-full md:w-1/3 h-40 relative rounded-lg overflow-hidden">
-                     <Image src="https://placehold.co/600x400.png" layout="fill" objectFit="cover" alt="Blog post image" data-ai-hint="concert crowd" />
-                  </div>
-                  <div className="flex-1">
-                     <h4 className="font-bold text-xl mb-1">How to Make the Most of a Music Festival</h4>
-                     <p className="text-muted-foreground mb-2">From packing essentials to navigating the crowds, here are our top tips for an unforgettable festival experience.</p>
-                     <Button variant="link" className="p-0">Read More</Button>
-                  </div>
-               </div>
+                </Card>
+              ))}
             </CardContent>
           </Card>
         </div>
@@ -94,12 +104,27 @@ export default function CommunityPage() {
         <div className="space-y-8">
           <Card>
             <CardHeader>
+              <CardTitle>Event Discussions</CardTitle>
+              <CardDescription>Talk about upcoming events.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {eventDiscussions.map((discussion) => (
+                <div key={discussion.title} className="p-3 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors cursor-pointer">
+                  <p className="font-semibold leading-tight">{discussion.title}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{discussion.event} • {discussion.replies} replies</p>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
               <CardTitle className="flex items-center">
                 <Users className="mr-2 text-primary" />
                 Featured Members
               </CardTitle>
                <CardDescription>
-                Meet some of our most active community members.
+                Meet active community members.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
