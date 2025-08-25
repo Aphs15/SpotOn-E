@@ -79,9 +79,11 @@ export default function ProfilePage() {
                             <CardTitle className="text-xl">Account Settings</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-3">
-                            <Button variant="outline" className="w-full justify-start">
-                                <Edit className="mr-2 h-4 w-4" />
-                                Personal Information
+                            <Button variant="outline" className="w-full justify-start" asChild>
+                                <Link href="/profile/personal-information">
+                                    <Edit className="mr-2 h-4 w-4" />
+                                    Personal Information
+                                </Link>
                             </Button>
                              <Button variant="outline" className="w-full justify-start">
                                 <Shield className="mr-2 h-4 w-4" />
