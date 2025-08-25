@@ -61,7 +61,7 @@ export default function CommunityPage() {
     <div className="container mx-auto px-4 py-8 animate-fade-in-up">
       <div className="relative text-center py-16 md:py-24 rounded-2xl overflow-hidden mb-12 bg-gradient-to-br from-purple-900 via-indigo-900 to-fuchsia-900">
         <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
-        <div className="relative z-10">
+        <div className="relative z-10 animate-fade-in-up">
           <h1 className="text-4xl md:text-6xl font-bold font-headline text-white tracking-tight">
             Join the Conversation
           </h1>
@@ -72,7 +72,7 @@ export default function CommunityPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-8 animate-fade-in-up animation-delay-200">
           <Card>
             <CardHeader>
               <CardTitle>Community Feed</CardTitle>
@@ -80,7 +80,7 @@ export default function CommunityPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               {feedPosts.map((post, index) => (
-                <Card key={index} className="p-4 bg-secondary">
+                <Card key={index} className="p-4 bg-secondary transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
                   <div className="flex items-start gap-4">
                     <Avatar>
                       <AvatarImage src={`https://placehold.co/100x100.png`} alt={post.author} data-ai-hint={post.avatarHint} />
@@ -130,7 +130,7 @@ export default function CommunityPage() {
           </Card>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-8 animate-fade-in-up animation-delay-400">
           <Card>
             <CardHeader>
               <CardTitle>Join a Group</CardTitle>
@@ -139,7 +139,7 @@ export default function CommunityPage() {
             <CardContent className="space-y-4">
               {communityGroups.map((group) => (
                 <Link href={`/community/${group.slug}`} key={group.name}>
-                  <div className="flex items-center justify-between p-3 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors cursor-pointer">
+                  <div className="flex items-center justify-between p-3 bg-secondary rounded-lg hover:bg-secondary/80 transition-all duration-300 hover:shadow-md hover:scale-105 cursor-pointer">
                       <div className="flex items-center gap-4">
                           <div className="p-2 bg-primary/10 rounded-full">
                               <group.Icon className="h-5 w-5 text-primary" />
@@ -163,7 +163,7 @@ export default function CommunityPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               {eventDiscussions.map((discussion) => (
-                <div key={discussion.title} className="p-3 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors cursor-pointer">
+                <div key={discussion.title} className="p-3 bg-secondary rounded-lg hover:bg-secondary/80 transition-all duration-300 hover:shadow-md hover:scale-105 cursor-pointer">
                   <p className="font-semibold leading-tight">{discussion.title}</p>
                   <p className="text-xs text-muted-foreground mt-1">{discussion.event} • {discussion.replies} replies</p>
                 </div>
