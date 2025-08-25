@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { MessageSquare, ThumbsUp, Users } from 'lucide-react';
+import { MessageSquare, ThumbsUp, Users, Music, Dribbble, Drama } from 'lucide-react';
 import Image from 'next/image';
 
 const communityMembers = [
@@ -32,7 +32,7 @@ const feedPosts = [
   {
     author: 'Bob',
     avatarHint: 'man glasses',
-    content: 'Any tips for first-timers at the Soweto Derby? Want to make the most of the experience!',
+    content: 'Checked in at FNB Stadium! Any tips for first-timers at the Soweto Derby? Want to make the most of the experience!',
     likes: 15,
     comments: 9,
   }
@@ -43,6 +43,12 @@ const eventDiscussions = [
   { title: 'Best pre-game spot near FNB Stadium?', event: 'Soweto Derby', replies: 45 },
   { title: 'The Lion King Meetup - Act 1 Intermission', event: 'The Lion King', replies: 22 },
 ];
+
+const communityGroups = [
+    { name: 'Music Lovers', members: '1.2k', Icon: Music },
+    { name: 'Sports Fans', members: '856', Icon: Dribbble },
+    { name: 'Theatre Buffs', members: '432', Icon: Drama },
+]
 
 
 export default function CommunityPage() {
@@ -104,6 +110,29 @@ export default function CommunityPage() {
         <div className="space-y-8">
           <Card>
             <CardHeader>
+              <CardTitle>Join a Group</CardTitle>
+              <CardDescription>Find your tribe and connect.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {communityGroups.map((group) => (
+                <div key={group.name} className="flex items-center justify-between p-3 bg-secondary rounded-lg">
+                    <div className="flex items-center gap-4">
+                        <div className="p-2 bg-primary/10 rounded-full">
+                            <group.Icon className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                            <p className="font-semibold">{group.name}</p>
+                            <p className="text-xs text-muted-foreground">{group.members} members</p>
+                        </div>
+                    </div>
+                    <Button size="sm" variant="outline">Join</Button>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
               <CardTitle>Event Discussions</CardTitle>
               <CardDescription>Talk about upcoming events.</CardDescription>
             </CardHeader>
@@ -121,7 +150,7 @@ export default function CommunityPage() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <Users className="mr-2 text-primary" />
-                Featured Members
+                Connect With Members
               </CardTitle>
                <CardDescription>
                 Meet active community members.
@@ -129,12 +158,15 @@ export default function CommunityPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {communityMembers.map((member) => (
-                <div key={member.name} className="flex items-center gap-4">
-                  <Avatar>
-                    <AvatarImage src={member.image} alt={member.name} data-ai-hint={member.hint} />
-                    <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <span className="font-semibold">{member.name}</span>
+                <div key={member.name} className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <Avatar>
+                            <AvatarImage src={member.image} alt={member.name} data-ai-hint={member.hint} />
+                            <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <span className="font-semibold">{member.name}</span>
+                    </div>
+                    <Button size="sm" variant="outline">Follow</Button>
                 </div>
               ))}
             </CardContent>
