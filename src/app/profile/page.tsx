@@ -85,9 +85,11 @@ export default function ProfilePage() {
                                     Personal Information
                                 </Link>
                             </Button>
-                             <Button variant="outline" className="w-full justify-start">
-                                <Shield className="mr-2 h-4 w-4" />
-                                Security & Password
+                             <Button variant="outline" className="w-full justify-start" asChild>
+                                <Link href="/profile/security">
+                                    <Shield className="mr-2 h-4 w-4" />
+                                    Security & Password
+                                </Link>
                             </Button>
                         </CardContent>
                     </Card>
@@ -259,3 +261,5 @@ export default function ProfilePage() {
         </div>
     );
 }
+
+    
