@@ -31,10 +31,10 @@ export default function EventCard({ event }: EventCardProps) {
   };
 
   return (
-    <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 border-transparent bg-secondary group">
+    <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 bg-secondary group rounded-2xl">
       <Link href={`/events/${event.id}`} className="block">
         <CardHeader className="p-0 relative">
-          <div className="aspect-[16/10] overflow-hidden rounded-t-lg">
+          <div className="aspect-[16/10] overflow-hidden rounded-t-2xl">
             <Image
               src={event.image}
               alt={event.name}
@@ -46,7 +46,7 @@ export default function EventCard({ event }: EventCardProps) {
           </div>
         </CardHeader>
         <CardContent className="p-4 flex-grow">
-          <Badge variant="outline" className="mb-2 font-semibold text-primary border-primary/50">
+          <Badge variant="secondary" className="mb-2 font-semibold bg-primary/10 text-primary border-primary/20">
             <CategoryIcon className="mr-1.5 h-3 w-3" />
             {event.category}
           </Badge>
@@ -73,11 +73,11 @@ export default function EventCard({ event }: EventCardProps) {
       <Button
         variant="ghost"
         size="icon"
-        className="absolute top-3 right-3 rounded-full h-9 w-9 bg-background/70 hover:bg-background backdrop-blur-sm transition-all scale-100 group-hover:scale-110"
+        className="absolute top-4 right-4 rounded-full h-9 w-9 bg-background/70 hover:bg-background backdrop-blur-sm transition-all scale-100 group-hover:scale-110"
         onClick={handleSaveClick}
         aria-label={isEventSaved(event.id) ? 'Unsave event' : 'Save event'}
       >
-        <Heart className={cn("h-5 w-5 transition-colors", isEventSaved(event.id) ? 'fill-red-500 text-red-500' : 'text-primary/80 hover:text-primary')} />
+        <Heart className={cn("h-5 w-5 transition-colors", isEventSaved(event.id) ? 'fill-accent text-accent' : 'text-primary/80 hover:text-primary')} />
       </Button>
     </Card>
   );

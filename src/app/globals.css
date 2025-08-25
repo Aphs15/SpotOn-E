@@ -8,26 +8,26 @@ body {
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    --background: 253 23% 11%; /* Dark Purple */
+    --foreground: 210 40% 98%;
+    --card: 256 20% 16%;
     --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
+    --popover: 253 23% 11%;
     --popover-foreground: 0 0% 98%;
-    --primary: 263.4 95.2% 66.1%;
+    --primary: 196 84% 53%; /* Bright Blue/Cyan */
     --primary-foreground: 210 40% 98%;
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 256 20% 16%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
+    --muted: 256 20% 16%;
     --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
+    --accent: 333 91% 61%; /* Pink/Magenta */
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 263.4 95.2% 66.1%;
-    --radius: 0.5rem;
+    --border: 256 20% 22%;
+    --input: 256 20% 22%;
+    --ring: 196 84% 53%;
+    --radius: 0.8rem;
 
      /* Custom Variables */
     --chart-1: 220 70% 50%;
@@ -38,26 +38,26 @@ body {
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    --background: 253 23% 11%; /* Dark Purple */
+    --foreground: 210 40% 98%;
+    --card: 256 20% 16%;
     --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
+    --popover: 253 23% 11%;
     --popover-foreground: 0 0% 98%;
-    --primary: 263.4 95.2% 66.1%;
+    --primary: 196 84% 53%; /* Bright Blue/Cyan */
     --primary-foreground: 210 40% 98%;
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 256 20% 16%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
+    --muted: 256 20% 16%;
     --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
+    --accent: 333 91% 61%; /* Pink/Magenta */
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 263.4 95.2% 66.1%;
-    --radius: 0.5rem;
+    --border: 256 20% 22%;
+    --input: 256 20% 22%;
+    --ring: 196 84% 53%;
+    --radius: 0.8rem;
 
     /* Custom Variables */
     --chart-1: 220 70% 50%;
