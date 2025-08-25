@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { LineChart, PieChart, Ticket, Share2, Heart, Eye } from 'lucide-react';
 import SalesChart from '@/components/sales-chart';
@@ -12,7 +13,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <Card>
+        <Card className="transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Tickets Sold</CardTitle>
             <Ticket className="h-4 w-4 text-muted-foreground" />
@@ -22,7 +23,7 @@ export default function DashboardPage() {
             <p className="text-xs text-muted-foreground">+20.1% from last month</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Views</CardTitle>
             <Eye className="h-4 w-4 text-muted-foreground" />
@@ -32,7 +33,7 @@ export default function DashboardPage() {
             <p className="text-xs text-muted-foreground">+180.1% from last month</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Saves</CardTitle>
             <Heart className="h-4 w-4 text-muted-foreground" />
@@ -42,7 +43,7 @@ export default function DashboardPage() {
             <p className="text-xs text-muted-foreground">+19% from last month</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Shares</CardTitle>
             <Share2 className="h-4 w-4 text-muted-foreground" />
@@ -55,7 +56,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 transform transition-transform duration-300 hover:scale-[1.01] hover:shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center">
                 <LineChart className="mr-2 text-primary h-5 w-5" />
@@ -66,7 +67,7 @@ export default function DashboardPage() {
             <SalesChart />
           </CardContent>
         </Card>
-        <Card>
+        <Card className="transform transition-transform duration-300 hover:scale-[1.01] hover:shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center">
                 <PieChart className="mr-2 text-primary h-5 w-5" />

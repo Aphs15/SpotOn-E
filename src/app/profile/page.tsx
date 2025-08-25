@@ -59,7 +59,7 @@ export default function ProfilePage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Left Column: User Info & Settings */}
                 <div className="lg:col-span-1 space-y-8">
-                    <Card>
+                    <Card className="transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
                         <CardHeader className="items-center text-center">
                             <Avatar className="h-24 w-24 mb-4 ring-2 ring-primary ring-offset-2 ring-offset-background">
                                 <AvatarImage src={user.avatar} alt={user.name} data-ai-hint={user.avatarHint} />
@@ -74,7 +74,7 @@ export default function ProfilePage() {
                         </CardContent>
                     </Card>
 
-                    <Card>
+                    <Card className="transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
                         <CardHeader>
                             <CardTitle className="text-xl">Account Settings</CardTitle>
                         </CardHeader>
@@ -97,7 +97,7 @@ export default function ProfilePage() {
 
                 {/* Right Column: Events, Communities & Reviews */}
                 <div className="lg:col-span-2 space-y-8">
-                    <Card>
+                    <Card className="transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
                         <CardHeader>
                             <CardTitle className="flex items-center text-xl">
                                 <Calendar className="mr-2 text-primary" />
@@ -112,7 +112,7 @@ export default function ProfilePage() {
                                 <div className="space-y-4">
                                     {savedEvents.map(event => (
                                         <Link href={`/events/${event.id}`} key={event.id}>
-                                            <div className="flex items-center gap-4 p-3 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors cursor-pointer">
+                                            <div className="flex items-center gap-4 p-3 bg-secondary rounded-lg hover:bg-primary/10 transition-colors cursor-pointer">
                                                 <Image src={event.image} alt={event.name} width={80} height={60} className="rounded-md object-cover aspect-[4/3]" data-ai-hint={event.imageHint} />
                                                 <div>
                                                     <p className="font-semibold">{event.name}</p>
@@ -142,7 +142,7 @@ export default function ProfilePage() {
                         </CardContent>
                     </Card>
 
-                     <Card>
+                     <Card className="transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
                         <CardHeader>
                             <CardTitle className="flex items-center text-xl">
                                 <Ticket className="mr-2 text-primary" />
@@ -156,7 +156,7 @@ export default function ProfilePage() {
                            {userBookings.length > 0 ? (
                                 <div className="space-y-4">
                                     {userBookings.map(booking => (
-                                       <Card key={booking.eventId} className="bg-secondary overflow-hidden">
+                                       <Card key={booking.eventId} className="bg-secondary overflow-hidden hover:shadow-md transition-shadow">
                                          <div className="flex flex-col sm:flex-row">
                                            <div className="flex-1 p-4">
                                                 <Link href={`/events/${booking.eventId}`}>
@@ -199,7 +199,7 @@ export default function ProfilePage() {
                         </CardContent>
                     </Card>
 
-                     <Card>
+                     <Card className="transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
                         <CardHeader>
                             <CardTitle className="flex items-center text-xl">
                                 <Users className="mr-2 text-primary" />
@@ -212,7 +212,7 @@ export default function ProfilePage() {
                         <CardContent className="space-y-4">
                            {joinedCommunities.map((group) => (
                              <Link href={`/community/${group.slug}`} key={group.name}>
-                                <div className="flex items-center justify-between p-3 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors cursor-pointer">
+                                <div className="flex items-center justify-between p-3 bg-secondary rounded-lg hover:bg-primary/10 transition-colors cursor-pointer">
                                     <div className="flex items-center gap-4">
                                         <div className="p-2 bg-primary/10 rounded-full">
                                             <group.Icon className="h-5 w-5 text-primary" />
@@ -229,7 +229,7 @@ export default function ProfilePage() {
                         </CardContent>
                     </Card>
 
-                     <Card>
+                     <Card className="transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
                         <CardHeader>
                             <CardTitle className="flex items-center text-xl">
                                 <Star className="mr-2 text-primary" />
@@ -241,7 +241,7 @@ export default function ProfilePage() {
                         </CardHeader>
                         <CardContent className="space-y-6">
                             {userReviews.map((review, index) => (
-                                <div key={index}>
+                                <div key={index} className="p-2 rounded-lg hover:bg-secondary/50 transition-colors">
                                     <div className="flex items-center justify-between mb-1">
                                       <p className="font-semibold">{review.eventName}</p>
                                       <div className="flex items-center">
@@ -261,5 +261,3 @@ export default function ProfilePage() {
         </div>
     );
 }
-
-    

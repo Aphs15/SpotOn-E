@@ -38,7 +38,6 @@ export default function EventActions({ event }: EventActionsProps) {
   };
 
   return (
-    <Card className="p-4 bg-card rounded-2xl">
       <div className="flex flex-col gap-4">
         <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full rounded-full font-semibold">
           <Link href={`/login`}>
@@ -69,6 +68,5 @@ export default function EventActions({ event }: EventActionsProps) {
             </Button>
         </div>
       </div>
-    </Card>
   );
 }

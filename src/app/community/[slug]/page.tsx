@@ -1,3 +1,4 @@
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -64,7 +65,7 @@ export default function CommunityDetailsPage({ params }: CommunityDetailsPagePro
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 animate-fade-in-up">
       <div className="mb-8">
         <h1 className="text-4xl font-bold font-headline tracking-tight">{details.name}</h1>
         <p className="text-lg text-muted-foreground mt-1">{details.description}</p>
@@ -73,7 +74,7 @@ export default function CommunityDetailsPage({ params }: CommunityDetailsPagePro
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           {/* Create Post Card */}
-          <Card>
+          <Card className="transform transition-transform duration-300 hover:scale-[1.01] hover:shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center">
                 <PlusCircle className="mr-2 text-primary" />
@@ -99,7 +100,7 @@ export default function CommunityDetailsPage({ params }: CommunityDetailsPagePro
           {/* Feed Posts */}
           <div className="space-y-6">
             {feedPosts.map((post, index) => (
-              <Card key={index} className="p-4">
+              <Card key={index} className="p-4 transform transition-transform duration-300 hover:scale-[1.01] hover:shadow-lg">
                 <div className="flex items-start gap-4">
                   <Avatar>
                     <AvatarImage src={`https://placehold.co/100x100.png`} alt={post.author} data-ai-hint={post.avatarHint} />
@@ -148,7 +149,7 @@ export default function CommunityDetailsPage({ params }: CommunityDetailsPagePro
           </div>
         </div>
         <div className="space-y-8">
-            <Card>
+            <Card className="transform transition-transform duration-300 hover:scale-[1.01] hover:shadow-lg">
                 <CardHeader>
                 <CardTitle className="flex items-center">
                     <Users className="mr-2 text-primary" />
@@ -160,7 +161,7 @@ export default function CommunityDetailsPage({ params }: CommunityDetailsPagePro
                 </CardHeader>
                 <CardContent className="space-y-4">
                 {communityMembers.map((member) => (
-                    <div key={member.name} className="flex items-center justify-between">
+                    <div key={member.name} className="flex items-center justify-between p-2 rounded-lg hover:bg-secondary/80 transition-colors">
                         <div className="flex items-center gap-4">
                             <Avatar>
                                 <AvatarImage src={member.image} alt={member.name} data-ai-hint={member.hint} />
