@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Calendar, Edit, Shield, Star, Bookmark, CalendarCheck } from 'lucide-react';
+import { Calendar, Edit, Shield, Star, Bookmark, CalendarCheck, Users, Music, Dribbble, Drama } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -22,6 +22,11 @@ const savedEvents = [
 const userReviews = [
     { eventName: 'Rocking the Daisies', rating: 5, comment: 'Absolutely incredible experience! The energy was insane and the lineup was top-notch. Can\'t wait for next year!' },
     { eventName: 'Gugs Unplugged Sessions', rating: 4, comment: 'A wonderful, intimate show. It felt so authentic and the talent was amazing. A must-do for local music lovers.' },
+];
+
+const joinedCommunities = [
+    { name: 'Music Lovers', slug: 'music-lovers', members: '1.2k', Icon: Music },
+    { name: 'Sports Fans', slug: 'sports-fans', members: '856', Icon: Dribbble },
 ];
 
 export default function ProfilePage() {
@@ -62,7 +67,7 @@ export default function ProfilePage() {
                     </Card>
                 </div>
 
-                {/* Right Column: Events & Reviews */}
+                {/* Right Column: Events, Communities & Reviews */}
                 <div className="lg:col-span-2 space-y-8">
                     <Card>
                         <CardHeader>
@@ -108,6 +113,37 @@ export default function ProfilePage() {
                             </div>
                         </CardContent>
                     </Card>
+
+                     <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center text-xl">
+                                <Users className="mr-2 text-primary" />
+                                Your Communities
+                            </CardTitle>
+                             <CardDescription>
+                                Groups you've joined and are a part of.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                           {joinedCommunities.map((group) => (
+                             <Link href={`/community/${group.slug}`} key={group.name}>
+                                <div className="flex items-center justify-between p-3 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors cursor-pointer">
+                                    <div className="flex items-center gap-4">
+                                        <div className="p-2 bg-primary/10 rounded-full">
+                                            <group.Icon className="h-5 w-5 text-primary" />
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold">{group.name}</p>
+                                            <p className="text-xs text-muted-foreground">{group.members} members</p>
+                                        </div>
+                                    </div>
+                                    <Button size="sm" variant="outline">View</Button>
+                                </div>
+                             </Link>
+                           ))}
+                        </CardContent>
+                    </Card>
+
                      <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center text-xl">

@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { MessageSquare, ThumbsUp, Users, Music, Dribbble, Drama, MoreVertical, BadgeCheck, AlertTriangle } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const communityMembers = [
   { name: 'Alice', image: 'https://placehold.co/100x100.png', hint: 'woman smiling' },
@@ -49,9 +50,9 @@ const eventDiscussions = [
 ];
 
 const communityGroups = [
-    { name: 'Music Lovers', members: '1.2k', Icon: Music },
-    { name: 'Sports Fans', members: '856', Icon: Dribbble },
-    { name: 'Theatre Buffs', members: '432', Icon: Drama },
+    { name: 'Music Lovers', slug: 'music-lovers', members: '1.2k', Icon: Music },
+    { name: 'Sports Fans', slug: 'sports-fans', members: '856', Icon: Dribbble },
+    { name: 'Theatre Buffs', slug: 'theatre-buffs', members: '432', Icon: Drama },
 ]
 
 
@@ -137,18 +138,20 @@ export default function CommunityPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {communityGroups.map((group) => (
-                <div key={group.name} className="flex items-center justify-between p-3 bg-secondary rounded-lg">
-                    <div className="flex items-center gap-4">
-                        <div className="p-2 bg-primary/10 rounded-full">
-                            <group.Icon className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                            <p className="font-semibold">{group.name}</p>
-                            <p className="text-xs text-muted-foreground">{group.members} members</p>
-                        </div>
-                    </div>
-                    <Button size="sm" variant="outline">Join</Button>
-                </div>
+                <Link href={`/community/${group.slug}`} key={group.name}>
+                  <div className="flex items-center justify-between p-3 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors cursor-pointer">
+                      <div className="flex items-center gap-4">
+                          <div className="p-2 bg-primary/10 rounded-full">
+                              <group.Icon className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                              <p className="font-semibold">{group.name}</p>
+                              <p className="text-xs text-muted-foreground">{group.members} members</p>
+                          </div>
+                      </div>
+                      <Button size="sm" variant="outline">Join</Button>
+                  </div>
+                </Link>
               ))}
             </CardContent>
           </Card>
