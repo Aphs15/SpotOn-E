@@ -20,8 +20,8 @@ const user = {
 };
 
 const savedEvents = [
-    { id: '1', name: 'Cape Town International Jazz Festival', date: 'Oct 26, 2024', image: 'https://placehold.co/600x400.png', imageHint: 'jazz music festival' },
-    { id: '2', name: 'Soweto Derby', date: 'Nov 09, 2024', image: 'https://placehold.co/600x400.png', imageHint: 'soccer stadium' },
+    { id: '1', name: 'Cape Town International Jazz Festival', date: 'Oct 26, 2025', image: 'https://placehold.co/600x400.png', imageHint: 'jazz music festival' },
+    { id: '2', name: 'Soweto Derby', date: 'Nov 09, 2025', image: 'https://placehold.co/600x400.png', imageHint: 'soccer stadium' },
 ];
 
 const userReviews = [

@@ -1,3 +1,4 @@
+
 import type { LucideIcon } from 'lucide-react';
 import { Drama, Dribbble, Music, Users } from 'lucide-react';
 
@@ -32,7 +33,7 @@ const events: Event[] = [
     location: 'CTICC',
     description:
       'The Cape Town International Jazz Festival is the largest music event in sub-Saharan Africa. The festival is annually held in Cape Town, South Africa at the Cape Town International Convention Centre.',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://picsum.photos/600/400?random=1',
     bookingLink: 'https://www.quicket.co.za',
   },
   {
@@ -44,7 +45,7 @@ const events: Event[] = [
     location: 'FNB Stadium',
     description:
       "Experience the thrill of South Africa's most iconic football match. The Soweto Derby is a rivalry between two of the country's most successful clubs.",
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://picsum.photos/600/400?random=2',
     bookingLink: 'https://www.computicket.com',
   },
   {
@@ -56,7 +57,7 @@ const events: Event[] = [
     location: 'The Teatro at Montecasino',
     description:
       "Disney's spectacular musical, The Lion King, returns to Johannesburg. A dazzling production with glorious colours, stunning effects and enchanting music.",
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://picsum.photos/600/400?random=3',
     bookingLink: 'https://www.quicket.co.za',
   },
   {
@@ -68,7 +69,7 @@ const events: Event[] = [
     location: 'Guga S’thebe, Langa',
     description:
       'An intimate acoustic music session featuring local artists from Gugulethu and surrounding areas. A true taste of local talent and culture.',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://picsum.photos/600/400?random=4',
     bookingLink: 'https://www.ozow.com',
   },
   {
@@ -80,7 +81,7 @@ const events: Event[] = [
     location: 'Greyville Racecourse',
     description:
       "Africa's greatest horse racing event. A day of fashion, entertainment, and thrilling thoroughbred racing.",
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://picsum.photos/600/400?random=5',
     bookingLink: 'https://www.computicket.com',
   },
   {
@@ -92,7 +93,7 @@ const events: Event[] = [
     location: 'Cloof Wine Estate, Darling',
     description:
       "South Africa's biggest outdoor music festival. A weekend of top international and local music acts, art, and camping.",
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://picsum.photos/600/400?random=6',
     bookingLink: 'https://www.quicket.co.za',
   },
    {
@@ -104,7 +105,7 @@ const events: Event[] = [
     location: 'Artscape Theatre Centre',
     description:
       'A special tribute performance celebrating the legacy of the iconic Fugard Theatre, featuring excerpts from its most beloved productions.',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://picsum.photos/600/400?random=7',
     bookingLink: 'https://www.computicket.com',
   },
   {
@@ -116,7 +117,7 @@ const events: Event[] = [
     location: 'Vaal Cricket Ground',
     description:
       'A vibrant celebration of food and music, featuring local DJs, live bands, and the best braai masters in the Vaal Triangle.',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://picsum.photos/600/400?random=8',
     bookingLink: 'https://www.payfast.io',
   },
 ];
