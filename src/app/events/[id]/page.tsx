@@ -16,7 +16,8 @@ interface EventPageProps {
 }
 
 export default async function EventPage({ params }: EventPageProps) {
-  const event = await getEventById(params.id);
+  const { id } = params;
+  const event = await getEventById(id);
 
   if (!event) {
     notFound();
@@ -37,7 +38,7 @@ export default async function EventPage({ params }: EventPageProps) {
             data-ai-hint={`${event.category.toLowerCase()} event`}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 text-white">
+          <div className="absolute bottom-6 left-6 md:bottom-8 md-left-8 text-white">
               <Badge variant="secondary" className="mb-2 bg-white/20 text-white backdrop-blur-md border-0">
                 <CategoryIcon className="mr-1 h-3 w-3" />
                 {event.category}
