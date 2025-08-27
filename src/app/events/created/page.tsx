@@ -10,10 +10,12 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import { PlusCircle } from 'lucide-react';
+import { useAuth } from '@/hooks/use-auth';
 
 export default function CreatedEventsPage() {
   const [createdEvents, setCreatedEvents] = useState<Event[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -37,7 +39,7 @@ export default function CreatedEventsPage() {
             </CardDescription>
           </div>
            <Button asChild>
-                <Link href="/login">
+                <Link href={user ? "/events/create" : "/login"}>
                     <PlusCircle className="mr-2 h-4 w-4" />
                     Create New Event
                 </Link>

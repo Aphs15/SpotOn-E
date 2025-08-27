@@ -17,6 +17,8 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { ThemeToggle } from './theme-toggle';
 import { useState } from 'react';
+import { useAuth } from '@/hooks/use-auth';
+import { Skeleton } from './ui/skeleton';
 
 const navLinks = [
     { href: '/', label: 'Home', Icon: Home },
@@ -26,7 +28,7 @@ const navLinks = [
 
 export default function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const isLoggedIn = true; // This can be replaced with actual auth state
+  const { user, loading, logout } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -40,7 +42,7 @@ export default function Header() {
                         <span className="sr-only">Open Menu</span>
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="left">
+                <SheetContent side="left" className="p-0">
                     <div className="flex flex-col h-full">
                         <div className="p-4 border-b">
                              <Link href="/" className="flex items-center space-x-2 font-bold text-lg" onClick={() => setIsSheetOpen(false)}>
@@ -83,28 +85,30 @@ export default function Header() {
         
         <div className="flex flex-1 items-center justify-end space-x-2">
             <Button asChild className="hidden md:inline-flex rounded-full font-semibold">
-                <Link href="/login">
+                <Link href={user ? "/events/create" : "/login"}>
                     <PlusCircle className="mr-2" />
                     Create Event
                 </Link>
             </Button>
-
-            {isLoggedIn ? (
+            
+            {loading ? (
+                <Skeleton className="h-9 w-9 rounded-full" />
+            ) : user ? (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="relative h-9 w-9 rounded-full">
                         <Avatar className="h-9 w-9">
-                            <AvatarImage src="https://placehold.co/100x100.png" alt="User" data-ai-hint="user avatar" />
-                            <AvatarFallback>U</AvatarFallback>
+                            <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} data-ai-hint="user avatar" />
+                            <AvatarFallback>{user.displayName?.charAt(0) || 'U'}</AvatarFallback>
                         </Avatar>
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56" align="end" forceMount>
                         <DropdownMenuLabel className="font-normal">
                         <div className="flex flex-col space-y-1">
-                            <p className="text-sm font-medium leading-none">Alex Doe</p>
+                            <p className="text-sm font-medium leading-none">{user.displayName}</p>
                             <p className="text-xs leading-none text-muted-foreground">
-                            alex.doe@example.com
+                            {user.email}
                             </p>
                         </div>
                         </DropdownMenuLabel>
@@ -126,7 +130,7 @@ export default function Header() {
                         <DropdownMenuSeparator />
                          <div className="md:hidden">
                             <DropdownMenuItem asChild>
-                                <Link href="/login">
+                                <Link href="/events/create">
                                     <PlusCircle className="mr-2" />
                                     <span>Create Event</span>
                                 </Link>
@@ -139,11 +143,9 @@ export default function Header() {
                            </div>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem asChild>
-                            <Link href="/login">
-                                <LogOut className="mr-2" />
-                                <span>Log Out</span>
-                            </Link>
+                        <DropdownMenuItem onClick={() => logout()}>
+                            <LogOut className="mr-2" />
+                            <span>Log Out</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

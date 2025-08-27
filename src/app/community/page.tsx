@@ -10,6 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '@/hooks/use-auth';
 
 const communityMembers = [
   { name: 'Alice', image: 'https://placehold.co/100x100.png', hint: 'woman smiling' },
@@ -63,6 +64,7 @@ const communityGroups = [
 
 export default function CommunityPage() {
     const [followedMembers, setFollowedMembers] = useState<Record<string, boolean>>({});
+    const { user } = useAuth();
 
     const handleFollowToggle = (memberName: string) => {
         setFollowedMembers(prev => ({ ...prev, [memberName]: !prev[memberName] }));
@@ -149,7 +151,7 @@ export default function CommunityPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {communityGroups.map((group) => (
-                <Link href={`/login`} key={group.name}>
+                <Link href={user ? `/community/${group.slug}` : `/login`} key={group.name}>
                   <div className="flex items-center justify-between p-3 bg-secondary rounded-lg hover:bg-secondary/80 transition-all duration-300 hover:shadow-md hover:scale-105 cursor-pointer">
                       <div className="flex items-center gap-4">
                           <div className="p-2 bg-primary/10 rounded-full">

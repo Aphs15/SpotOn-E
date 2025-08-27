@@ -15,6 +15,7 @@ import EventCard from './event-card';
 import { Button } from './ui/button';
 import Link from 'next/link';
 import { PlusCircle, Bookmark, Search, Flame } from 'lucide-react';
+import { useAuth } from '@/hooks/use-auth';
 
 interface EventBrowserProps {
   initialEvents: Event[];
@@ -30,6 +31,7 @@ export default function EventBrowser({
   const [searchTerm, setSearchTerm] = useState('');
   const [cityFilter, setCityFilter] = useState('all');
   const [categoryFilter, setCategoryFilter] = useState('all');
+  const { user } = useAuth();
 
   const filteredEvents = useMemo(() => {
     return initialEvents
@@ -121,13 +123,13 @@ export default function EventBrowser({
                 <h2 className="text-2xl font-bold font-headline">All Events</h2>
                 <div className="flex flex-wrap gap-4 items-center">
                     <Button asChild size="lg" className="rounded-full font-semibold">
-                        <Link href="/login">
+                        <Link href={user ? "/events/create" : "/login"}>
                         <PlusCircle className="mr-2 h-4 w-4" />
                         Create Event
                         </Link>
                     </Button>
                     <Button variant="outline" asChild size="lg" className="rounded-full font-semibold">
-                        <Link href="/events/saved">
+                        <Link href={user ? "/events/saved" : "/login"}>
                         <Bookmark className="mr-2 h-4 w-4" />
                         View Saved Events
                         </Link>

@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSavedEvents } from '@/hooks/use-saved-events';
 import { cn } from '@/lib/utils';
-import { Card } from './ui/card';
+import { useAuth } from '@/hooks/use-auth';
 
 interface EventActionsProps {
   event: Event;
@@ -19,6 +19,7 @@ export default function EventActions({ event }: EventActionsProps) {
   const { toast } = useToast();
   const { isEventSaved, toggleSaveEvent } = useSavedEvents();
   const [shareUrl, setShareUrl] = useState('');
+  const { user } = useAuth();
 
   useEffect(() => {
     // Ensure window is defined (runs only on client)
@@ -40,7 +41,7 @@ export default function EventActions({ event }: EventActionsProps) {
   return (
       <div className="flex flex-col gap-4">
         <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full rounded-full font-semibold">
-          <Link href={`/login`}>
+          <Link href={user ? `/events/${event.id}/book` : `/login`}>
             <Ticket className="mr-2 h-5 w-5" />
             Book Now
           </Link>
