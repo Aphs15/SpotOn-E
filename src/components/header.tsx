@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Home, Settings, Mail, PlusCircle, Bookmark, Ticket, Users, LayoutDashboard, CalendarCheck, UserPlus, LogIn, User, LogOut, Menu } from 'lucide-react';
+import { Home, Settings, Mail, PlusCircle, Bookmark, Ticket, Users, LayoutDashboard, CalendarCheck, UserPlus, LogIn, User, LogOut, Menu, History } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import {
@@ -23,6 +23,7 @@ import { Skeleton } from './ui/skeleton';
 const navLinks = [
     { href: '/', label: 'Home', Icon: Home },
     { href: '/community', label: 'Community', Icon: Users },
+    { href: '/events/past', label: 'Past Events', Icon: History },
     { href: '/contact', label: 'Contact', Icon: Mail },
 ];
 

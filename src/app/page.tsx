@@ -6,9 +6,11 @@ export default async function Home() {
   const cities = await getCities();
   const categories = await getCategories();
 
+  const upcomingEvents = events.filter(event => event.date >= new Date());
+
   return (
     <EventBrowser
-      initialEvents={events}
+      initialEvents={upcomingEvents}
       cities={cities}
       categories={categories}
     />
