@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -11,6 +12,11 @@ import { Info } from 'lucide-react';
 export default async function CreateEventPage() {
   const cities = await getCities();
   const categories = await getCategories();
+
+  // Get current date and time in YYYY-MM-DDTHH:MM format for the input min attribute
+  const now = new Date();
+  now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+  const minDateTime = now.toISOString().slice(0, 16);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -57,7 +63,7 @@ export default async function CreateEventPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="date">Date & Time</Label>
-              <Input id="date" type="datetime-local" />
+              <Input id="date" type="datetime-local" min={minDateTime} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="location">Location / Venue</Label>
