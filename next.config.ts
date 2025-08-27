@@ -90,6 +90,22 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'www.capetourism.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'st5.depositphotos.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'static-cdn.jtvnw.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'm.media-amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+      },
     ],
   },
   async headers() {

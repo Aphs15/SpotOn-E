@@ -48,7 +48,7 @@ export default function CommunityPage() {
                 <Card key={index} className="p-4 bg-card transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg">
                   <div className="flex items-start gap-4">
                     <Avatar>
-                      <AvatarImage src={`https://placehold.co/100x100.png`} alt={post.author} data-ai-hint={post.avatarHint} />
+                      <AvatarImage src={post.avatar} alt={post.author} data-ai-hint={post.avatarHint} />
                       <AvatarFallback>{post.author.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">

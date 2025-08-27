@@ -72,7 +72,7 @@ export default function CommunityDetailsPage({ params }: CommunityDetailsPagePro
               <Card key={index} className="p-4 transform transition-transform duration-300 hover:scale-[1.01] hover:shadow-lg">
                 <div className="flex items-start gap-4">
                   <Avatar>
-                    <AvatarImage src={`https://placehold.co/100x100.png`} alt={post.author} data-ai-hint={post.avatarHint} />
+                    <AvatarImage src={post.avatar} alt={post.author} data-ai-hint={post.avatarHint} />
                     <AvatarFallback>{post.author.charAt(0)}</AvatarFallback>
                   </Avatar>
                   <div className="flex-1">

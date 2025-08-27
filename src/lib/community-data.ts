@@ -17,11 +17,11 @@ export const communityDetails = {
 }
 
 export const communityMembers = [
-  { name: 'Alice', image: 'https://placehold.co/100x100.png', hint: 'woman smiling' },
-  { name: 'Bob', image: 'https://placehold.co/100x100.png', hint: 'man glasses' },
-  { name: 'Charlie', image: 'https://placehold.co/100x100.png', hint: 'person nature' },
-  { name: 'Diana', image: 'https://placehold.co/100x100.png', hint: 'woman portrait' },
-  { name: 'Ethan', image: 'https://placehold.co/100x100.png', hint: 'man hiking' },
+  { name: 'Alice', image: 'https://st5.depositphotos.com/57718742/67162/i/450/depositphotos_671626028-stock-photo-shy-young-latino-woman-venezuelan.jpg', hint: 'woman smiling' },
+  { name: 'Bob', image: 'https://static-cdn.jtvnw.net/jtv_user_pictures/8fd4faba-7e27-423c-a574-419c55b516cb-profile_image-300x300.png', hint: 'man glasses' },
+  { name: 'Charlie', image: 'https://m.media-amazon.com/images/I/41e5cmC2mFL._UF1000,1000_QL80_.jpg', hint: 'person nature' },
+  { name: 'Diana', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT21X7zrkKjUnD7SXghEhYrivYrvJYoobmILw&s', hint: 'woman portrait' },
+  { name: 'Ethan', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-d_zc-iONnLXOqvaLbY1ofqpXMmwc37JCzw&s', hint: 'man hiking' },
 ];
 
 export const feedPosts = [
@@ -32,6 +32,7 @@ export const feedPosts = [
     likes: 42,
     comments: 18,
     verified: false,
+    avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT21X7zrkKjUnD7SXghEhYrivYrvJYoobmILw&s',
   },
   {
     author: 'Fiona',
@@ -42,6 +43,7 @@ export const feedPosts = [
     likes: 128,
     comments: 34,
     verified: false,
+    avatar: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Fiona2009MarchaDF.JPG/1200px-Fiona2009MarchaDF.JPG'
   },
   {
     author: 'Bob',
@@ -50,6 +52,7 @@ export const feedPosts = [
     likes: 15,
     comments: 9,
     verified: true,
+    avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/8fd4faba-7e27-423c-a574-419c55b516cb-profile_image-300x300.png',
   }
 ];
 
@@ -81,7 +84,7 @@ export const joinedCommunities = [
 ];
 
 export const followingMembers = [
-  { name: 'Alice', image: 'https://placehold.co/100x100.png', hint: 'woman smiling' },
-  { name: 'Bob', image: 'https://placehold.co/100x100.png', hint: 'man glasses' },
-  { name: 'Diana', image: 'https://placehold.co/100x100.png', hint: 'woman portrait' },
+  { name: 'Alice', image: 'https://st5.depositphotos.com/57718742/67162/i/450/depositphotos_671626028-stock-photo-shy-young-latino-woman-venezuelan.jpg', hint: 'woman smiling' },
+  { name: 'Bob', image: 'https://static-cdn.jtvnw.net/jtv_user_pictures/8fd4faba-7e27-423c-a574-419c55b516cb-profile_image-300x300.png', hint: 'man glasses' },
+  { name: 'Diana', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT21X7zrkKjUnD7SXghEhYrivYrvJYoobmILw&s', hint: 'woman portrait' },
 ];
