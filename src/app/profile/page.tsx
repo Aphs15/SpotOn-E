@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Calendar, Edit, Shield, Star, Bookmark, CalendarCheck, Users, Music, Dribbble, Drama, Ticket, QrCode } from 'lucide-react';
+import { Calendar, Edit, Shield, Star, Bookmark, CalendarCheck, Users, Music, Dribbble, Drama, Ticket, QrCode, UserPlus, UserMinus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -32,6 +32,12 @@ const userReviews = [
 const joinedCommunities = [
     { name: 'Music Lovers', slug: 'music-lovers', members: '1.2k', Icon: Music },
     { name: 'Sports Fans', slug: 'sports-fans', members: '856', Icon: Dribbble },
+];
+
+const followingMembers = [
+  { name: 'Alice', image: 'https://placehold.co/100x100.png', hint: 'woman smiling' },
+  { name: 'Bob', image: 'https://placehold.co/100x100.png', hint: 'man glasses' },
+  { name: 'Diana', image: 'https://placehold.co/100x100.png', hint: 'woman portrait' },
 ];
 
 interface Booking {
@@ -196,6 +202,35 @@ export default function ProfilePage() {
                             ) : (
                                 <p className="text-muted-foreground text-center py-4">You have no booked tickets yet.</p>
                             )}
+                        </CardContent>
+                    </Card>
+
+                    <Card className="transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
+                        <CardHeader>
+                            <CardTitle className="flex items-center text-xl">
+                                <UserPlus className="mr-2 text-primary" />
+                                Following
+                            </CardTitle>
+                             <CardDescription>
+                                Members you are currently following.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                           {followingMembers.map((member) => (
+                                <div key={member.name} className="flex items-center justify-between p-2 rounded-lg hover:bg-secondary/80 transition-colors">
+                                    <div className="flex items-center gap-4">
+                                        <Avatar>
+                                            <AvatarImage src={member.image} alt={member.name} data-ai-hint={member.hint} />
+                                            <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                                        </Avatar>
+                                        <span className="font-semibold">{member.name}</span>
+                                    </div>
+                                    <Button size="sm" variant="outline">
+                                        <UserMinus className="mr-2 h-4 w-4" />
+                                        Unfollow
+                                    </Button>
+                                </div>
+                           ))}
                         </CardContent>
                     </Card>
 

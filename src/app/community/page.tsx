@@ -1,11 +1,15 @@
 
+'use client';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { MessageSquare, ThumbsUp, Users, Music, Dribbble, Drama, MoreVertical, BadgeCheck, AlertTriangle } from 'lucide-react';
+import { MessageSquare, ThumbsUp, Users, Music, Dribbble, Drama, MoreVertical, BadgeCheck, AlertTriangle, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const communityMembers = [
   { name: 'Alice', image: 'https://placehold.co/100x100.png', hint: 'woman smiling' },
@@ -58,6 +62,12 @@ const communityGroups = [
 
 
 export default function CommunityPage() {
+    const [followedMembers, setFollowedMembers] = useState<Record<string, boolean>>({});
+
+    const handleFollowToggle = (memberName: string) => {
+        setFollowedMembers(prev => ({ ...prev, [memberName]: !prev[memberName] }));
+    };
+
   return (
     <div className="container mx-auto px-4 py-8 animate-fade-in-up">
       <div className="relative text-center py-16 md:py-24 rounded-2xl overflow-hidden mb-12 bg-primary">
@@ -192,7 +202,44 @@ export default function CommunityPage() {
                         </Avatar>
                         <span className="font-semibold">{member.name}</span>
                     </div>
-                    <Button size="sm" variant="outline">Follow</Button>
+                    <motion.div
+                        initial={false}
+                        animate={followedMembers[member.name] ? 'followed' : 'unfollowed'}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        <Button
+                            size="sm"
+                            variant={followedMembers[member.name] ? 'default' : 'outline'}
+                            onClick={() => handleFollowToggle(member.name)}
+                            className="w-24"
+                        >
+                            <AnimatePresence mode="wait">
+                                {followedMembers[member.name] ? (
+                                    <motion.span
+                                        key="following"
+                                        initial={{ y: -20, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        exit={{ y: 20, opacity: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="flex items-center"
+                                    >
+                                        <Check className="mr-2 h-4 w-4" />
+                                        Following
+                                    </motion.span>
+                                ) : (
+                                    <motion.span
+                                        key="follow"
+                                        initial={{ y: -20, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        exit={{ y: 20, opacity: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        Follow
+                                    </motion.span>
+                                )}
+                            </AnimatePresence>
+                        </Button>
+                    </motion.div>
                 </div>
               ))}
             </CardContent>
