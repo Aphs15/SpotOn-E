@@ -11,48 +11,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const communityDetails = {
-    'music-lovers': {
-        name: 'Music Lovers',
-        description: 'A place for fans of all genres to connect and share their passion for music.'
-    },
-    'sports-fans': {
-        name: 'Sports Fans',
-        description: 'Discussing everything from local matches to international tournaments.'
-    },
-    'theatre-buffs': {
-        name: 'Theatre Buffs',
-        description: 'For lovers of the stage, from Broadway hits to local productions.'
-    }
-}
-
-const feedPosts = [
-  {
-    author: 'Diana',
-    avatarHint: 'woman portrait',
-    content: "Just got my tickets for the Cape Town International Jazz Festival! Who else is going? Can't wait!",
-    likes: 42,
-    comments: 18,
-    verified: false,
-  },
-  {
-    author: 'Fiona',
-    avatarHint: 'woman city',
-    content: "Rocking the Daisies was absolutely epic last weekend! Here's a shot from the main stage. The energy was unreal.",
-    image: 'https://placehold.co/600x400.png',
-    imageHint: 'music festival crowd',
-    likes: 128,
-    comments: 34,
-    verified: false,
-  },
-];
-
-const communityMembers = [
-  { name: 'Alice', image: 'https://placehold.co/100x100.png', hint: 'woman smiling' },
-  { name: 'Bob', image: 'https://placehold.co/100x100.png', hint: 'man glasses' },
-  { name: 'Diana', image: 'https://placehold.co/100x100.png', hint: 'woman portrait' },
-];
+import { communityDetails, feedPosts, communityMembers } from '@/lib/community-data';
 
 interface CommunityDetailsPageProps {
     params: {

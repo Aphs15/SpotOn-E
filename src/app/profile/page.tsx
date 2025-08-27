@@ -5,11 +5,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Calendar, Edit, Shield, Star, Bookmark, CalendarCheck, Users, Music, Dribbble, Drama, Ticket, QrCode, UserPlus, UserMinus } from 'lucide-react';
+import { Calendar, Edit, Shield, Star, Bookmark, CalendarCheck, Users, Ticket, QrCode, UserPlus, UserMinus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { GoogleIcon, AppleWalletIcon } from '@/components/icons';
+import { followingMembers, joinedCommunities, userReviews, savedEvents } from '@/lib/community-data';
 
 const user = {
     name: 'Alex Doe',
@@ -18,27 +19,6 @@ const user = {
     avatarHint: 'woman smiling',
     joined: 'October 2024',
 };
-
-const savedEvents = [
-    { id: '1', name: 'Cape Town International Jazz Festival', date: 'Oct 26, 2025', image: 'https://placehold.co/600x400.png', imageHint: 'jazz music festival' },
-    { id: '2', name: 'Soweto Derby', date: 'Nov 09, 2025', image: 'https://placehold.co/600x400.png', imageHint: 'soccer stadium' },
-];
-
-const userReviews = [
-    { eventName: 'Rocking the Daisies', rating: 5, comment: 'Absolutely incredible experience! The energy was insane and the lineup was top-notch. Can\'t wait for next year!' },
-    { eventName: 'Gugs Unplugged Sessions', rating: 4, comment: 'A wonderful, intimate show. It felt so authentic and the talent was amazing. A must-do for local music lovers.' },
-];
-
-const joinedCommunities = [
-    { name: 'Music Lovers', slug: 'music-lovers', members: '1.2k', Icon: Music },
-    { name: 'Sports Fans', slug: 'sports-fans', members: '856', Icon: Dribbble },
-];
-
-const followingMembers = [
-  { name: 'Alice', image: 'https://placehold.co/100x100.png', hint: 'woman smiling' },
-  { name: 'Bob', image: 'https://placehold.co/100x100.png', hint: 'man glasses' },
-  { name: 'Diana', image: 'https://placehold.co/100x100.png', hint: 'woman portrait' },
-];
 
 interface Booking {
     eventId: string;

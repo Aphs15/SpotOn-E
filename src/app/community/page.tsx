@@ -5,61 +5,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { MessageSquare, ThumbsUp, Users, Music, Dribbble, Drama, MoreVertical, BadgeCheck, AlertTriangle, Check } from 'lucide-react';
+import { MessageSquare, ThumbsUp, Users, MoreVertical, BadgeCheck, AlertTriangle, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/hooks/use-auth';
-
-const communityMembers = [
-  { name: 'Alice', image: 'https://placehold.co/100x100.png', hint: 'woman smiling' },
-  { name: 'Bob', image: 'https://placehold.co/100x100.png', hint: 'man glasses' },
-  { name: 'Charlie', image: 'https://placehold.co/100x100.png', hint: 'person nature' },
-  { name: 'Diana', image: 'https://placehold.co/100x100.png', hint: 'woman portrait' },
-  { name: 'Ethan', image: 'https://placehold.co/100x100.png', hint: 'man hiking' },
-];
-
-const feedPosts = [
-  {
-    author: 'Diana',
-    avatarHint: 'woman portrait',
-    content: "Just got my tickets for the Cape Town International Jazz Festival! Who else is going? Can't wait!",
-    likes: 42,
-    comments: 18,
-    verified: false,
-  },
-  {
-    author: 'Fiona',
-    avatarHint: 'woman city',
-    content: "Rocking the Daisies was absolutely epic last weekend! Here's a shot from the main stage. The energy was unreal.",
-    image: 'https://placehold.co/600x400.png',
-    imageHint: 'music festival crowd',
-    likes: 128,
-    comments: 34,
-    verified: false,
-  },
-  {
-    author: 'Bob',
-    avatarHint: 'man glasses',
-    content: 'Checked in at FNB Stadium! Any tips for first-timers at the Soweto Derby? Want to make the most of the experience!',
-    likes: 15,
-    comments: 9,
-    verified: true,
-  }
-];
-
-const eventDiscussions = [
-  { title: "Who's going to the Cape Town Jazz Festival?", event: 'Cape Town International Jazz Festival', replies: 78 },
-  { title: 'Best pre-game spot near FNB Stadium?', event: 'Soweto Derby', replies: 45 },
-  { title: 'The Lion King Meetup - Act 1 Intermission', event: 'The Lion King', replies: 22 },
-];
-
-const communityGroups = [
-    { name: 'Music Lovers', slug: 'music-lovers', members: '1.2k', Icon: Music },
-    { name: 'Sports Fans', slug: 'sports-fans', members: '856', Icon: Dribbble },
-    { name: 'Theatre Buffs', slug: 'theatre-buffs', members: '432', Icon: Drama },
-]
+import { communityMembers, feedPosts, eventDiscussions, communityGroups } from '@/lib/community-data';
 
 
 export default function CommunityPage() {
