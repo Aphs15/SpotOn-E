@@ -106,6 +106,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'upload.wikimedia.org',
       },
+      {
+        protocol: 'https',
+        hostname: 'hypemagazine.co.za',
+      }
     ],
   },
   async headers() {

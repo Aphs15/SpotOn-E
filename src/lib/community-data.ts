@@ -38,7 +38,7 @@ export const feedPosts = [
     author: 'Fiona',
     avatarHint: 'woman city',
     content: "Rocking the Daisies was absolutely epic last weekend! Here's a shot from the main stage. The energy was unreal.",
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://hypemagazine.co.za/wp-content/uploads/2025/03/tems-2-1024x682.webp',
     imageHint: 'music festival crowd',
     likes: 128,
     comments: 34,
