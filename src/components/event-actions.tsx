@@ -25,7 +25,7 @@ export default function EventActions({ event }: EventActionsProps) {
     // Ensure window is defined (runs only on client)
     if (typeof window !== 'undefined') {
       const shareText = encodeURIComponent(
-        `Check out this event: ${event.name} on Event Hopper! ${window.location.href}`
+        `Check out this event: ${event.name} on SpotOn! ${window.location.href}`
       );
       setShareUrl(`https://wa.me/?text=${shareText}`);
     }

@@ -41,7 +41,7 @@ export default function CommunityPage() {
           <Card>
             <CardHeader>
               <CardTitle>Community Feed</CardTitle>
-              <CardDescription>See what's happening in the Event Hopper community.</CardDescription>
+              <CardDescription>See what's happening in the SpotOn community.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {feedPosts.map((post, index) => (

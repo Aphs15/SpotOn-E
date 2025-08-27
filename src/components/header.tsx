@@ -48,7 +48,7 @@ export default function Header() {
                         <div className="p-4 border-b">
                              <Link href="/" className="flex items-center space-x-2 font-bold text-lg" onClick={() => setIsSheetOpen(false)}>
                                 <Ticket className="h-6 w-6 text-primary" />
-                                <span className="font-headline tracking-tight">Event Hopper</span>
+                                <span className="font-headline tracking-tight">SpotOn</span>
                             </Link>
                         </div>
                         <nav className="flex flex-col gap-2 p-4 flex-1">
@@ -73,7 +73,7 @@ export default function Header() {
         <div className="hidden md:flex items-center">
           <Link href="/" className="flex items-center space-x-2 font-bold text-lg">
             <Ticket className="h-6 w-6 text-primary" />
-            <span className="font-headline tracking-tight">Event Hopper</span>
+            <span className="font-headline tracking-tight">SpotOn</span>
           </Link>
         </div>
         <nav className="hidden md:flex items-center space-x-2 mx-6">

@@ -37,7 +37,7 @@ export default function SignUpPage() {
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-headline">Create an Account</CardTitle>
           <CardDescription>
-            Join Event Hopper to discover and create amazing events.
+            Join SpotOn to discover and create amazing events.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
