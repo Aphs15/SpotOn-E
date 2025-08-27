@@ -61,7 +61,7 @@ interface CommunityDetailsPageProps {
 }
 
 export default function CommunityDetailsPage({ params }: CommunityDetailsPageProps) {
-  const { slug } = params;
+  const slug = params.slug;
   const details = communityDetails[slug];
 
   const [followedMembers, setFollowedMembers] = useState<Record<string, boolean>>({});
