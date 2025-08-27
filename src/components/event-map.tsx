@@ -1,3 +1,4 @@
+
 'use client';
 
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
@@ -50,10 +51,14 @@ export default function EventMap({ location }: EventMapProps) {
 
   if (loadError) {
     return (
-      <div className="h-[400px] w-full bg-destructive/20 rounded-lg flex items-center justify-center text-destructive-foreground p-4">
-        <p>
-          Map cannot be loaded right now, sorry. Your API key might be invalid.
-        </p>
+      <div className="h-[400px] w-full bg-destructive/10 rounded-lg flex items-center justify-center p-4">
+        <div className="text-center text-destructive">
+           <AlertTriangle className="mx-auto h-8 w-8 mb-2" />
+          <p className="font-semibold">Map Error: Invalid API Key</p>
+          <p className="text-sm">
+            The provided Google Maps API key is invalid or misconfigured. Please check it in the Google Cloud Console.
+          </p>
+        </div>
       </div>
     );
   }
