@@ -1,8 +1,8 @@
 
 import type { LucideIcon } from 'lucide-react';
-import { Drama, Dribbble, Music, Users } from 'lucide-react';
+import { Drama, Dribbble, Music, Users, Briefcase, Heart, Trophy } from 'lucide-react';
 
-export type EventCategory = 'Music' | 'Sports' | 'Theatre' | 'Township Gigs';
+export type EventCategory = 'Music' | 'Sports' | 'Theatre' | 'Township Gigs' | 'Conventions' | 'Charity' | 'Competitions';
 
 export interface Event {
   id: string;
@@ -21,6 +21,9 @@ export const categoryIcons: Record<EventCategory, LucideIcon> = {
   Sports: Dribbble,
   Theatre: Drama,
   'Township Gigs': Users,
+  Conventions: Briefcase,
+  Charity: Heart,
+  Competitions: Trophy,
 };
 
 const events: Event[] = [
@@ -217,6 +220,39 @@ const events: Event[] = [
     description: 'An annual family-friendly festival with live music, rides, and exhibitions.',
     image: 'https://picsum.photos/600/400?random=18',
     bookingLink: 'https://www.computicket.com',
+  },
+  {
+    id: '19',
+    name: 'AfricaCom',
+    city: 'Cape Town',
+    category: 'Conventions',
+    date: new Date('2024-11-12T09:00:00'),
+    location: 'CTICC',
+    description: 'The largest African telecommunications, media, and technology event.',
+    image: 'https://picsum.photos/600/400?random=19',
+    bookingLink: 'https://www.quicket.co.za',
+  },
+  {
+    id: '20',
+    name: 'Cape Town Cycle Tour',
+    city: 'Cape Town',
+    category: 'Charity',
+    date: new Date('2025-03-09T06:00:00'),
+    location: 'Grand Parade',
+    description: 'The world\'s largest timed cycling event, raising money for various charities.',
+    image: 'https://picsum.photos/600/400?random=20',
+    bookingLink: 'https://www.computicket.com',
+  },
+  {
+    id: '21',
+    name: 'Comrades Marathon',
+    city: 'Durban',
+    category: 'Competitions',
+    date: new Date('2025-06-08T05:30:00'),
+    location: 'Durban to Pietermaritzburg',
+    description: 'The ultimate human race, a grueling ultramarathon between Durban and Pietermaritzburg.',
+    image: 'https://picsum.photos/600/400?random=21',
+    bookingLink: 'https://www.quicket.co.za',
   }
 ];
 
