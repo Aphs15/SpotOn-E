@@ -36,7 +36,7 @@ const events: Event[] = [
     location: 'CTICC',
     description:
       'The Cape Town International Jazz Festival is the largest music event in sub-Saharan Africa. The festival is annually held in Cape Town, South Africa at the Cape Town International Convention Centre.',
-    image: 'https://picsum.photos/600/400?random=1',
+    image: 'https://www.carnifest.com/wp-content/uploads/2020/02/cape_town_international_jazz_festival-Photo-www.capetownjazzfest.com_.jpg',
     bookingLink: 'https://www.quicket.co.za',
   },
   {
@@ -48,7 +48,7 @@ const events: Event[] = [
     location: 'FNB Stadium',
     description:
       "Experience the thrill of South Africa's most iconic football match. The Soweto Derby is a rivalry between two of the country's most successful clubs.",
-    image: 'https://picsum.photos/600/400?random=2',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzJA4t9Af-BuM7xAtxCk5WTY3MZp3nZohf6WGgD0whLw6XpVqollz8P3LcVZlRcPljY8U&usqp=CAU',
     bookingLink: 'https://www.computicket.com',
   },
   {
@@ -60,7 +60,7 @@ const events: Event[] = [
     location: 'The Teatro at Montecasino',
     description:
       "Disney's spectacular musical, The Lion King, returns to Johannesburg. A dazzling production with glorious colours, stunning effects and enchanting music.",
-    image: 'https://picsum.photos/600/400?random=3',
+    image: 'https://content.webtickets.co.za/artscape/panel_Web%20_20241209_210621.jpg',
     bookingLink: 'https://www.quicket.co.za',
   },
   {
@@ -72,7 +72,7 @@ const events: Event[] = [
     location: 'Guga S’thebe, Langa',
     description:
       'An intimate acoustic music session featuring local artists from Gugulethu and surrounding areas. A true taste of local talent and culture.',
-    image: 'https://picsum.photos/600/400?random=4',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsUeWloeZVm6Pl7CYjX3ktJV3xQgSqbr0RSjzMZhN4o9GcKVN4OMmXF3m31-DzqYSOljU&usqp=CAU',
     bookingLink: 'https://www.ozow.com',
   },
   {
@@ -84,7 +84,7 @@ const events: Event[] = [
     location: 'Greyville Racecourse',
     description:
       "Africa's greatest horse racing event. A day of fashion, entertainment, and thrilling thoroughbred racing.",
-    image: 'https://picsum.photos/600/400?random=5',
+    image: 'https://i.ytimg.com/vi/pl6BFuKofFI/maxresdefault.jpg',
     bookingLink: 'https://www.computicket.com',
   },
   {
@@ -96,7 +96,7 @@ const events: Event[] = [
     location: 'Cloof Wine Estate, Darling',
     description:
       "South Africa's biggest outdoor music festival. A weekend of top international and local music acts, art, and camping.",
-    image: 'https://picsum.photos/600/400?random=6',
+    image: 'https://images.quicket.co.za/0582364_0.jpeg',
     bookingLink: 'https://www.quicket.co.za',
   },
    {
@@ -108,7 +108,7 @@ const events: Event[] = [
     location: 'Artscape Theatre Centre',
     description:
       'A special tribute performance celebrating the legacy of the iconic Fugard Theatre, featuring excerpts from its most beloved productions.',
-    image: 'https://picsum.photos/600/400?random=7',
+    image: 'https://static1.squarespace.com/static/595003098419c2c56722b521/t/609c3f2e8bf2d71a3c54c88d/1620852530668/61e9Q7YQIAL._AC_UL600_SR381%252C600_.jpg',
     bookingLink: 'https://www.computicket.com',
   },
   {
@@ -119,7 +119,7 @@ const events: Event[] = [
     date: new Date(new Date().getFullYear() + 1, 9, 17, 10, 0, 0),
     location: 'Loch Logan Waterfront',
     description: 'Celebrate the City of Roses with a festival of music, food, and flowers.',
-    image: 'https://picsum.photos/600/400?random=9',
+    image: 'https://mangaungrosefestival.co.za/wp-content/uploads/2019/04/or_20171020113139150.jpeg',
     bookingLink: 'https://www.quicket.co.za',
   },
   {
@@ -130,7 +130,7 @@ const events: Event[] = [
     date: new Date(new Date().getFullYear() + 1, 9, 4, 12, 0, 0),
     location: 'Loftus Versfeld Stadium',
     description: 'A massive music festival featuring top South African artists under the purple jacaranda trees.',
-    image: 'https://picsum.photos/600/400?random=10',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcUzZvbZ7zHrPTR0p-6m8Dg313Sh6gorf5QMAEEArIu-_wMcI3nX9H3qnfat4OEGuixcE&usqp=CAU',
     bookingLink: 'https://www.computicket.com',
   },
   {
@@ -141,7 +141,7 @@ const events: Event[] = [
     date: new Date(new Date().getFullYear() + 1, 3, 25, 9, 0, 0),
     location: 'KwaZulu-Natal National Botanical Garden',
     description: 'One of the largest outdoor art exhibitions in the country.',
-    image: 'https://picsum.photos/600/400?random=11',
+    image: 'https://images.quicket.co.za/0565067_0.jpeg',
     bookingLink: 'https://www.quicket.co.za',
   },
   {
@@ -152,7 +152,7 @@ const events: Event[] = [
     date: new Date(new Date().getFullYear() + 1, 3, 6, 7, 0, 0),
     location: 'Hobie Beach',
     description: 'Watch athletes compete in this grueling triathlon.',
-    image: 'https://picsum.photos/600/400?random=12',
+    image: 'https://proseries.ironman.com/sites/default/files/styles/coh_x_large/public/2024-12/IM22_IRONMAN_African_Championship_Logo_Isuzu_2023_Pos.png?itok=AK-gp-Sw',
     bookingLink: 'https://www.computicket.com',
   },
   {
@@ -163,7 +163,7 @@ const events: Event[] = [
     date: new Date(new Date().getFullYear(), 11, 20, 11, 0, 0),
     location: 'Eastern Beach',
     description: 'A summer festival with live music, beach sports, and family fun.',
-    image: 'https://picsum.photos/600/400?random=13',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD74atXPCDclsOKUU505zwR4qGjRglYyUDlmdbD6nE30hekb_MJ4CSOZlmZ7EKSQSTTI0&usqp=CAU',
     bookingLink: 'https://www.quicket.co.za',
   },
   {
@@ -174,7 +174,7 @@ const events: Event[] = [
     date: new Date(new Date().getFullYear() + 1, 8, 27, 10, 0, 0),
     location: 'Kumba Skate Plaza',
     description: 'An international skateboarding competition attracting pros from around the world.',
-    image: 'https://picsum.photos/600/400?random=14',
+    image: 'https://oscar.ofm.co.za//media/1/1/10/22/3b50081a-4e5b-44f8-9176-b88c3eb94fa9.jpg',
     bookingLink: 'https://www.computicket.com',
   },
   {
@@ -196,7 +196,7 @@ const events: Event[] = [
     date: new Date(new Date().getFullYear(), 11, 7, 12, 0, 0),
     location: 'Polokwane Cricket Club',
     description: 'A cultural festival celebrating the heritage of Limpopo with music, dance, and poetry.',
-    image: 'https://picsum.photos/600/400?random=16',
+    image: 'https://computicket-boxoffice-media.s3.af-south-1.amazonaws.com/media-library/22132/conversions/3I04hXiRPiaKNTTYjEo0tRQO5C9MkA-metaZDMwYmNlOWQtY2E3Yy00MzVmLWE0MmQtNWZjOWMxNzliZDc1LkpQRw%3D%3D--detail.jpg',
     bookingLink: 'https://www.computicket.com',
   },
   {
@@ -207,7 +207,7 @@ const events: Event[] = [
     date: new Date(new Date().getFullYear(), 11, 13, 14, 0, 0),
     location: 'Mmabatho Stadium',
     description: 'A multi-disciplinary arts festival showcasing the best of the North West province.',
-    image: 'https://picsum.photos/600/400?random=17',
+    image: 'https://computicket-boxoffice-media.s3.af-south-1.amazonaws.com/media-library/38999/conversions/Cwc0rZu6otNPfLVAPVVUwSBGSaplNd-metaQ29tcHV0aWNrZXQgQmFubmVyIFlvdXRoLnBuZw%3D%3D--detail.jpg',
     bookingLink: 'https://www.quicket.co.za',
   },
   {
@@ -218,7 +218,7 @@ const events: Event[] = [
     date: new Date(new Date().getFullYear() + 1, 4, 1, 10, 0, 0),
     location: 'Show Grounds',
     description: 'An annual family-friendly festival with live music, rides, and exhibitions.',
-    image: 'https://picsum.photos/600/400?random=18',
+    image: 'https://winterfestival.co.za/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-27-at-21.40.38_7def4691-1024x577.jpg',
     bookingLink: 'https://www.computicket.com',
   },
   {
@@ -229,7 +229,7 @@ const events: Event[] = [
     date: new Date(new Date().getFullYear(), 10, 12, 9, 0, 0),
     location: 'CTICC',
     description: 'The largest African telecommunications, media, and technology event.',
-    image: 'https://picsum.photos/600/400?random=19',
+    image: 'https://www.cerillion.com/media/w1fgiemg/africacom2023.png',
     bookingLink: 'https://www.quicket.co.za',
   },
   {
@@ -239,8 +239,8 @@ const events: Event[] = [
     category: 'Charity',
     date: new Date(new Date().getFullYear() + 1, 2, 9, 6, 0, 0),
     location: 'Grand Parade',
-    description: 'The world\'s largest timed cycling event, raising money for various charities.',
-    image: 'https://picsum.photos/600/400?random=20',
+    description: "The world's largest timed cycling event, raising money for various charities.",
+    image: 'https://www.capetourism.com/wp-content/uploads/2024/02/Cape-Argus.jpg',
     bookingLink: 'https://www.computicket.com',
   },
   {
@@ -251,7 +251,7 @@ const events: Event[] = [
     date: new Date(new Date().getFullYear() + 1, 5, 8, 5, 30, 0),
     location: 'Durban to Pietermaritzburg',
     description: 'The ultimate human race, a grueling ultramarathon between Durban and Pietermaritzburg.',
-    image: 'https://picsum.photos/600/400?random=21',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqNwECbQkXbCmsej4-YEJ5fHUyEVfcqS167w&s',
     bookingLink: 'https://www.quicket.co.za',
   }
 ];
