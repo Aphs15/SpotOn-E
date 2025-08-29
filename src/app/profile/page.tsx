@@ -11,14 +11,9 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { GoogleIcon, AppleWalletIcon } from '@/components/icons';
 import { followingMembers, joinedCommunities, userReviews, savedEvents } from '@/lib/community-data';
-
-const user = {
-    name: 'Alex Doe',
-    email: 'alex.doe@example.com',
-    avatar: 'https://placehold.co/100x100.png',
-    avatarHint: 'woman smiling',
-    joined: 'October 2024',
-};
+import { useAuth } from '@/hooks/use-auth';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useRouter } from 'next/navigation';
 
 interface Booking {
     eventId: string;
@@ -32,6 +27,8 @@ interface Booking {
 
 export default function ProfilePage() {
     const [userBookings, setUserBookings] = useState<Booking[]>([]);
+    const { user, loading } = useAuth();
+    const router = useRouter();
 
     useEffect(() => {
         const storedBookings = localStorage.getItem('userBookings');
@@ -39,6 +36,45 @@ export default function ProfilePage() {
             setUserBookings(JSON.parse(storedBookings));
         }
     }, []);
+
+    useEffect(() => {
+        if (!loading && !user) {
+            router.push('/login');
+        }
+    }, [user, loading, router]);
+
+
+    if (loading || !user) {
+        return (
+             <div className="container mx-auto px-4 py-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="lg:col-span-1 space-y-8">
+                        <Card>
+                            <CardHeader className="items-center text-center">
+                                <Skeleton className="h-24 w-24 rounded-full mb-4" />
+                                <Skeleton className="h-6 w-32" />
+                                <Skeleton className="h-4 w-48 mt-2" />
+                            </CardHeader>
+                            <CardContent>
+                                <Skeleton className="h-10 w-full rounded-full" />
+                            </CardContent>
+                        </Card>
+                    </div>
+                    <div className="lg:col-span-2 space-y-8">
+                         <Card>
+                            <CardHeader>
+                               <Skeleton className="h-6 w-48" />
+                               <Skeleton className="h-4 w-64 mt-2" />
+                            </CardHeader>
+                            <CardContent>
+                                <Skeleton className="h-20 w-full" />
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="container mx-auto px-4 py-8 animate-fade-in-up">
@@ -48,12 +84,12 @@ export default function ProfilePage() {
                     <Card className="transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
                         <CardHeader className="items-center text-center">
                             <Avatar className="h-24 w-24 mb-4 ring-2 ring-primary ring-offset-2 ring-offset-background">
-                                <AvatarImage src={user.avatar} alt={user.name} data-ai-hint={user.avatarHint} />
-                                <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                                <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} data-ai-hint="user avatar" />
+                                <AvatarFallback>{user.displayName?.charAt(0) || 'U'}</AvatarFallback>
                             </Avatar>
-                            <CardTitle className="text-2xl font-headline">{user.name}</CardTitle>
+                            <CardTitle className="text-2xl font-headline">{user.displayName}</CardTitle>
                             <CardDescription>{user.email}</CardDescription>
-                            <p className="text-xs text-muted-foreground">Joined {user.joined}</p>
+                            <p className="text-xs text-muted-foreground">Joined October 2024</p>
                         </CardHeader>
                         <CardContent>
                              <Button className="w-full rounded-full">Edit Profile</Button>
@@ -275,4 +311,5 @@ export default function ProfilePage() {
             </div>
         </div>
     );
-}
+
+    
