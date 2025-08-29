@@ -15,16 +15,20 @@ import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { auth } from '@/lib/firebase';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertTriangle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
 
 export default function LoginPage() {
-  const { user, signInWithGoogle, loading } = useAuth();
+  const { user, signInWithGoogle, signInWithEmail, loading } = useAuth();
   const router = useRouter();
+  const { toast } = useToast();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const isFirebaseConfigured = !!auth;
 
   useEffect(() => {
@@ -32,6 +36,19 @@ export default function LoginPage() {
       router.push('/profile');
     }
   }, [user, router]);
+
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!email || !password) {
+      toast({
+        title: 'Error',
+        description: 'Please enter both email and password.',
+        variant: 'destructive',
+      });
+      return;
+    }
+    await signInWithEmail(email, password);
+  };
 
   if (loading || user) {
     return <div className="flex items-center justify-center min-h-[calc(100vh-10rem)]">Loading...</div>;
@@ -56,14 +73,29 @@ export default function LoginPage() {
               </AlertDescription>
             </Alert>
           )}
-           <form className="space-y-4">
+           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email-username">Email or Username</Label>
-              <Input id="email-username" type="text" placeholder="Enter your email or username" required disabled={!isFirebaseConfigured} />
+              <Input 
+                id="email-username" 
+                type="text" 
+                placeholder="Enter your email or username" 
+                required 
+                disabled={!isFirebaseConfigured}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" required disabled={!isFirebaseConfigured} />
+              <Input 
+                id="password" 
+                type="password" 
+                required 
+                disabled={!isFirebaseConfigured} 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <Button type="submit" className="w-full" disabled={!isFirebaseConfigured}>
               Login

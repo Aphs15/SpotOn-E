@@ -2,15 +2,17 @@
 'use client';
 
 import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
-import { onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut, User } from 'firebase/auth';
+import { onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut, User, signInWithEmailAndPassword, AuthError } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
+  signInWithEmail: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -20,17 +22,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const { toast } = useToast();
 
   useEffect(() => {
     // Only subscribe to auth state changes if Firebase is initialized
-    if (!auth) {
+    if (!auth || !db) {
       setUser(null);
       setLoading(false);
       return;
     }
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user && db) { // Also check for db before using it
+      if (user) { 
         const userRef = doc(db, 'users', user.uid);
         const docSnap = await getDoc(userRef);
         if (!docSnap.exists()) {
@@ -64,6 +67,43 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       router.push('/profile');
     } catch (error) {
       console.error("Error signing in with Google: ", error);
+      toast({
+        title: 'Sign-in Error',
+        description: 'Could not sign in with Google. Please try again.',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const signInWithEmail = async (email: string, password: string) => {
+    if (!auth) {
+      console.error("Firebase is not configured. Cannot sign in.");
+      return;
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push('/profile');
+    } catch (error) {
+      const authError = error as AuthError;
+      let description = 'An unexpected error occurred. Please try again.';
+      switch (authError.code) {
+        case 'auth/user-not-found':
+        case 'auth/invalid-credential':
+          description = 'Invalid email or password. Please check your credentials and try again.';
+          break;
+        case 'auth/wrong-password':
+          description = 'Incorrect password. Please try again.';
+          break;
+        case 'auth/invalid-email':
+          description = 'The email address is not valid.';
+          break;
+      }
+      toast({
+        title: 'Login Failed',
+        description,
+        variant: 'destructive',
+      });
+      console.error("Error signing in with email: ", error);
     }
   };
 
@@ -77,7 +117,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signInWithGoogle, logout }}>
+    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signInWithEmail, logout }}>
       {children}
     </AuthContext.Provider>
   );
