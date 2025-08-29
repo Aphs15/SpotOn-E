@@ -22,8 +22,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
+    // Only subscribe to auth state changes if Firebase is initialized
+    if (!auth) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
+      if (user && db) { // Also check for db before using it
         const userRef = doc(db, 'users', user.uid);
         const docSnap = await getDoc(userRef);
         if (!docSnap.exists()) {
@@ -47,6 +54,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const signInWithGoogle = async () => {
+    if (!auth) {
+      console.error("Firebase is not configured. Cannot sign in.");
+      return;
+    }
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
@@ -57,6 +68,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = async () => {
+    if (!auth) {
+        console.error("Firebase is not configured. Cannot log out.");
+        return;
+    }
     await signOut(auth);
     router.push('/');
   };
