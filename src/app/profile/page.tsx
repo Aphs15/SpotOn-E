@@ -10,12 +10,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { GoogleIcon, AppleWalletIcon } from '@/components/icons';
-import { followingMembers, joinedCommunities, userReviews } from '@/lib/community-data';
+import { followingMembers as initialFollowingMembers, joinedCommunities, userReviews } from '@/lib/community-data';
+import type { FollowingMember } from '@/lib/community-data';
 import { useAuth } from '@/hooks/use-auth';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
 import { useSavedEvents } from '@/hooks/use-saved-events';
 import { getEvents, type Event } from '@/lib/events';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 interface Booking {
     eventId: string;
@@ -34,6 +46,7 @@ export default function ProfilePage() {
     const { savedEventIds } = useSavedEvents();
     const [allEvents, setAllEvents] = useState<Event[]>([]);
     const [isLoadingEvents, setIsLoadingEvents] = useState(true);
+    const [followingMembers, setFollowingMembers] = useState<FollowingMember[]>(initialFollowingMembers);
 
     useEffect(() => {
         const storedBookings = localStorage.getItem('userBookings');
@@ -54,6 +67,10 @@ export default function ProfilePage() {
             router.push('/login');
         }
     }, [user, loading, router]);
+    
+    const handleUnfollow = (memberName: string) => {
+        setFollowingMembers(currentMembers => currentMembers.filter(member => member.name !== memberName));
+    };
 
     const savedEvents = allEvents.filter(event => savedEventIds.includes(event.id));
 
@@ -258,12 +275,33 @@ export default function ProfilePage() {
                                         </Avatar>
                                         <span className="font-semibold">{member.name}</span>
                                     </div>
-                                    <Button size="sm" variant="outline">
-                                        <UserMinus className="mr-2 h-4 w-4" />
-                                        Unfollow
-                                    </Button>
+                                    <AlertDialog>
+                                        <AlertDialogTrigger asChild>
+                                             <Button size="sm" variant="outline">
+                                                <UserMinus className="mr-2 h-4 w-4" />
+                                                Unfollow
+                                            </Button>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                                <AlertDialogDescription>
+                                                    Are you sure you want to unfollow {member.name}?
+                                                </AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                <AlertDialogAction onClick={() => handleUnfollow(member.name)}>
+                                                    Yes, Unfollow
+                                                </AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    </AlertDialog>
                                 </div>
                            ))}
+                           {followingMembers.length === 0 && (
+                                <p className="text-muted-foreground text-center py-4">You are not following anyone yet.</p>
+                           )}
                         </CardContent>
                     </Card>
 

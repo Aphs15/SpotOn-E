@@ -1,6 +1,12 @@
 
 import { Music, Dribbble, Drama } from 'lucide-react';
 
+export interface FollowingMember {
+    name: string;
+    image: string;
+    hint: string;
+}
+
 export const communityDetails = {
     'music-lovers': {
         name: 'Music Lovers',
@@ -78,7 +84,7 @@ export const joinedCommunities = [
     { name: 'Sports Fans', slug: 'sports-fans', members: '856', Icon: Dribbble },
 ];
 
-export const followingMembers = [
+export const followingMembers: FollowingMember[] = [
   { name: 'Alice', image: 'https://st5.depositphotos.com/57718742/67162/i/450/depositphotos_671626028-stock-photo-shy-young-latino-woman-venezuelan.jpg', hint: 'woman smiling' },
   { name: 'Bob', image: 'https://static-cdn.jtvnw.net/jtv_user_pictures/8fd4faba-7e27-423c-a574-419c55b516cb-profile_image-300x300.png', hint: 'man glasses' },
   { name: 'Diana', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT21X7zrkKjUnD7SXghEhYrivYrvJYoobmILw&s', hint: 'woman portrait' },
