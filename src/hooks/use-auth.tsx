@@ -18,6 +18,8 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const MOCK_USER_STORAGE_KEY = 'mockUser';
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -25,6 +27,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { toast } = useToast();
 
   useEffect(() => {
+    // First, check for a persisted mock user session
+    const storedMockUser = localStorage.getItem(MOCK_USER_STORAGE_KEY);
+    if (storedMockUser) {
+        try {
+            setUser(JSON.parse(storedMockUser));
+            setLoading(false);
+            return; // Skip Firebase auth check if mock user is active
+        } catch (error) {
+            console.error("Failed to parse mock user from localStorage", error);
+            localStorage.removeItem(MOCK_USER_STORAGE_KEY);
+        }
+    }
+
     // Only subscribe to auth state changes if Firebase is initialized
     if (!auth || !db) {
       setUser(null);
@@ -84,6 +99,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         displayName: 'UserOne',
         photoURL: 'https://media.tenor.com/K-KTshhwK4gAAAAM/kanye-kanye-weat.gif',
       } as User;
+      localStorage.setItem(MOCK_USER_STORAGE_KEY, JSON.stringify(mockUser));
       setUser(mockUser);
       setLoading(false);
       router.push('/profile');
@@ -127,6 +143,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     // Handle mock user logout
+    localStorage.removeItem(MOCK_USER_STORAGE_KEY);
     if (user?.uid === 'mock-user-one-uid') {
         setUser(null);
         router.push('/');
