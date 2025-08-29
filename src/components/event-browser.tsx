@@ -2,7 +2,7 @@
 'use client';
 
 import type { Event } from '@/lib/events';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
   Select,
   SelectContent,
@@ -31,10 +31,26 @@ export default function EventBrowser({
   const [searchTerm, setSearchTerm] = useState('');
   const [cityFilter, setCityFilter] = useState('all');
   const [categoryFilter, setCategoryFilter] = useState('all');
+  const [allEvents, setAllEvents] = useState<Event[]>(initialEvents);
   const { user } = useAuth();
 
+  useEffect(() => {
+    try {
+      const storedEvents = localStorage.getItem('createdEvents');
+      if (storedEvents) {
+        const createdEvents = JSON.parse(storedEvents).map((event: any) => ({
+          ...event,
+          date: new Date(event.date), // Ensure date is a Date object
+        }));
+        setAllEvents(prevEvents => [...prevEvents, ...createdEvents]);
+      }
+    } catch (error) {
+      console.error('Failed to parse created events from localStorage', error);
+    }
+  }, []);
+
   const filteredEvents = useMemo(() => {
-    return initialEvents
+    return allEvents
       .filter(event =>
         event.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
@@ -42,7 +58,7 @@ export default function EventBrowser({
       .filter(
         event => categoryFilter === 'all' || event.category === categoryFilter
       );
-  }, [initialEvents, searchTerm, cityFilter, categoryFilter]);
+  }, [allEvents, searchTerm, cityFilter, categoryFilter]);
 
   const trendingEvents = useMemo(() => {
     return initialEvents.slice(0, 4);
