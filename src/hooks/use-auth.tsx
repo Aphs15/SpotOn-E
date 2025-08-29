@@ -76,6 +76,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signInWithEmail = async (email: string, password: string) => {
+    // Mock user login
+    if (email === 'UserOne' && password === 'password12345') {
+      const mockUser = {
+        uid: 'mock-user-one-uid',
+        email: 'userone@example.com',
+        displayName: 'UserOne',
+        photoURL: 'https://placehold.co/100x100/FFC107/FFFFFF?text=U1',
+      } as User;
+      setUser(mockUser);
+      setLoading(false);
+      router.push('/profile');
+      toast({
+        title: 'Logged in as Mock User',
+        description: 'You are now logged in as UserOne.',
+      });
+      return;
+    }
+    
     if (!auth) {
       console.error("Firebase is not configured. Cannot sign in.");
       return;
@@ -108,6 +126,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = async () => {
+    // Handle mock user logout
+    if (user?.uid === 'mock-user-one-uid') {
+        setUser(null);
+        router.push('/');
+        return;
+    }
+
     if (!auth) {
         console.error("Firebase is not configured. Cannot log out.");
         return;
