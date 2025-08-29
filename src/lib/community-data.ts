@@ -68,11 +68,6 @@ export const communityGroups = [
     { name: 'Theatre Buffs', slug: 'theatre-buffs', members: '432', Icon: Drama },
 ]
 
-export const savedEvents = [
-    { id: '1', name: 'Cape Town International Jazz Festival', date: 'Oct 26, 2025', image: 'https://placehold.co/600x400.png', imageHint: 'jazz music festival' },
-    { id: '2', name: 'Soweto Derby', date: 'Nov 09, 2025', image: 'https://placehold.co/600x400.png', imageHint: 'soccer stadium' },
-];
-
 export const userReviews = [
     { eventName: 'Rocking the Daisies', rating: 5, comment: 'Absolutely incredible experience! The energy was insane and the lineup was top-notch. Can\'t wait for next year!' },
     { eventName: 'Gugs Unplugged Sessions', rating: 4, comment: 'A wonderful, intimate show. It felt so authentic and the talent was amazing. A must-do for local music lovers.' },
@@ -88,3 +83,5 @@ export const followingMembers = [
   { name: 'Bob', image: 'https://static-cdn.jtvnw.net/jtv_user_pictures/8fd4faba-7e27-423c-a574-419c55b516cb-profile_image-300x300.png', hint: 'man glasses' },
   { name: 'Diana', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT21X7zrkKjUnD7SXghEhYrivYrvJYoobmILw&s', hint: 'woman portrait' },
 ];
+
+    

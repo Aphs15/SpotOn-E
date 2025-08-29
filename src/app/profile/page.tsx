@@ -10,10 +10,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { GoogleIcon, AppleWalletIcon } from '@/components/icons';
-import { followingMembers, joinedCommunities, userReviews, savedEvents } from '@/lib/community-data';
+import { followingMembers, joinedCommunities, userReviews } from '@/lib/community-data';
 import { useAuth } from '@/hooks/use-auth';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
+import { useSavedEvents } from '@/hooks/use-saved-events';
+import { getEvents, type Event } from '@/lib/events';
 
 interface Booking {
     eventId: string;
@@ -29,12 +31,22 @@ export default function ProfilePage() {
     const [userBookings, setUserBookings] = useState<Booking[]>([]);
     const { user, loading } = useAuth();
     const router = useRouter();
+    const { savedEventIds } = useSavedEvents();
+    const [allEvents, setAllEvents] = useState<Event[]>([]);
+    const [isLoadingEvents, setIsLoadingEvents] = useState(true);
 
     useEffect(() => {
         const storedBookings = localStorage.getItem('userBookings');
         if (storedBookings) {
             setUserBookings(JSON.parse(storedBookings));
         }
+
+        const fetchEvents = async () => {
+            const events = await getEvents();
+            setAllEvents(events);
+            setIsLoadingEvents(false);
+        };
+        fetchEvents();
     }, []);
 
     useEffect(() => {
@@ -43,6 +55,7 @@ export default function ProfilePage() {
         }
     }, [user, loading, router]);
 
+    const savedEvents = allEvents.filter(event => savedEventIds.includes(event.id));
 
     if (loading || !user) {
         return (
@@ -130,15 +143,17 @@ export default function ProfilePage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                             {savedEvents.length > 0 ? (
+                             {isLoadingEvents ? (
+                                <Skeleton className="h-20 w-full" />
+                             ) : savedEvents.length > 0 ? (
                                 <div className="space-y-4">
                                     {savedEvents.map(event => (
                                         <Link href={`/events/${event.id}`} key={event.id}>
                                             <div className="flex items-center gap-4 p-3 bg-secondary rounded-lg hover:bg-primary/10 transition-colors cursor-pointer">
-                                                <Image src={event.image} alt={event.name} width={80} height={60} className="rounded-md object-cover aspect-[4/3]" data-ai-hint={event.imageHint} />
+                                                <Image src={event.image} alt={event.name} width={80} height={60} className="rounded-md object-cover aspect-[4/3]" data-ai-hint={`${event.category.toLowerCase()} event`} />
                                                 <div>
                                                     <p className="font-semibold">{event.name}</p>
-                                                    <p className="text-sm text-muted-foreground">{event.date}</p>
+                                                    <p className="text-sm text-muted-foreground">{event.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                                                 </div>
                                             </div>
                                         </Link>
@@ -311,5 +326,6 @@ export default function ProfilePage() {
             </div>
         </div>
     );
+}
 
     
