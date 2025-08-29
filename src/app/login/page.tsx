@@ -58,15 +58,15 @@ export default function LoginPage() {
           )}
            <form className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="m@example.com" required disabled={!isFirebaseConfigured} />
+              <Label htmlFor="email-username">Email or Username</Label>
+              <Input id="email-username" type="text" placeholder="Enter your email or username" required disabled={!isFirebaseConfigured} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input id="password" type="password" required disabled={!isFirebaseConfigured} />
             </div>
             <Button type="submit" className="w-full" disabled={!isFirebaseConfigured}>
-              Login with Email
+              Login
             </Button>
           </form>
            <div className="relative my-6">
