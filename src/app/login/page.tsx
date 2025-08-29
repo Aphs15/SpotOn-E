@@ -16,10 +16,14 @@ import Link from 'next/link';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { auth } from '@/lib/firebase';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertTriangle } from 'lucide-react';
 
 export default function LoginPage() {
   const { user, signInWithGoogle, loading } = useAuth();
   const router = useRouter();
+  const isFirebaseConfigured = !!auth;
 
   useEffect(() => {
     if (user) {
@@ -41,12 +45,21 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
+           {!isFirebaseConfigured && (
+            <Alert variant="destructive" className="mb-4">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertTitle>Firebase Not Configured</AlertTitle>
+              <AlertDescription>
+                The login services are currently unavailable. Please configure Firebase to enable authentication.
+              </AlertDescription>
+            </Alert>
+          )}
           <div className="space-y-4">
-            <Button variant="outline" className="w-full" onClick={signInWithGoogle}>
+            <Button variant="outline" className="w-full" onClick={signInWithGoogle} disabled={!isFirebaseConfigured}>
               <GoogleIcon className="mr-2 h-5 w-5" />
               Continue with Google
             </Button>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full" disabled={!isFirebaseConfigured}>
               <FacebookIcon className="mr-2 h-5 w-5" />
               Continue with Facebook
             </Button>
