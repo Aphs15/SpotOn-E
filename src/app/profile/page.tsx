@@ -298,7 +298,7 @@ export default function ProfilePage() {
                            {followingMembers.length === 0 && (
                                 <p className="text-muted-foreground text-center py-4">You are not following anyone yet.</p>
                            )}
-                           {followingMembers.length > 0 && (
+                           {followingMembers.length > 5 && (
                                 <Button variant="outline" className="w-full mt-4" asChild>
                                     <Link href="/profile/following">
                                         View All Following
