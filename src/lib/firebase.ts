@@ -15,18 +15,16 @@ const firebaseConfig = {
 // A variable to hold the initialized Firebase app instance.
 let app;
 
-// Check if all required environment variables are set.
-const requiredEnvVars = [
-  firebaseConfig.apiKey,
-  firebaseConfig.authDomain,
-  firebaseConfig.projectId,
-];
+// Check if all required environment variables are set and not placeholders.
+const isConfigValid = firebaseConfig.apiKey &&
+                      !firebaseConfig.apiKey.startsWith('AIzaSyA') && // A basic check for a real key
+                      firebaseConfig.authDomain &&
+                      firebaseConfig.projectId;
 
-// Only initialize Firebase if the configuration is valid.
-if (requiredEnvVars.every(Boolean) && !requiredEnvVars.some(val => val?.includes('your-'))) {
+if (isConfigValid) {
     app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 } else {
-    console.warn("Firebase configuration is missing or incomplete. Firebase services will be disabled.");
+    console.warn("Firebase configuration is missing, invalid, or using placeholder values. Firebase services will be disabled. Please update your .env.local file with valid credentials.");
 }
 
 // Conditionally initialize Auth and Firestore only if the app was initialized.
