@@ -262,7 +262,7 @@ export default function ProfilePage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                           {followingMembers.map((member) => (
+                           {followingMembers.slice(0, 5).map((member) => (
                                 <div key={member.name} className="flex items-center justify-between p-2 rounded-lg hover:bg-secondary/80 transition-colors">
                                     <div className="flex items-center gap-4">
                                         <Avatar>
@@ -297,6 +297,13 @@ export default function ProfilePage() {
                            ))}
                            {followingMembers.length === 0 && (
                                 <p className="text-muted-foreground text-center py-4">You are not following anyone yet.</p>
+                           )}
+                           {followingMembers.length > 0 && (
+                                <Button variant="outline" className="w-full mt-4" asChild>
+                                    <Link href="/profile/following">
+                                        View All Following
+                                    </Link>
+                                </Button>
                            )}
                         </CardContent>
                     </Card>
