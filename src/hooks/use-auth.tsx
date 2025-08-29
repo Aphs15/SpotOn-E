@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (email === 'UserOne' && password === 'password12345') {
       const mockUser = {
         uid: 'mock-user-one-uid',
-        email: 'userone@example.com',
+        email: 'userone@gmail.com',
         displayName: 'UserOne',
         photoURL: 'https://media.tenor.com/K-KTshhwK4gAAAAM/kanye-kanye-weat.gif',
       } as User;
