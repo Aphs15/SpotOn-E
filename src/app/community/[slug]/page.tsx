@@ -10,7 +10,7 @@ import { MessageSquare, ThumbsUp, MoreVertical, BadgeCheck, AlertTriangle, PlusC
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { communityDetails, feedPosts, communityMembers } from '@/lib/community-data';
+import { communityDetails } from '@/lib/community-data';
 import { useFollowing } from '@/hooks/use-following';
 
 interface CommunityDetailsPageProps {
@@ -27,6 +27,8 @@ export default function CommunityDetailsPage({ params }: CommunityDetailsPagePro
   if (!details) {
     notFound();
   }
+
+  const { members: communityMembers, feed: feedPosts } = details;
 
   return (
     <div className="container mx-auto px-4 py-8 animate-fade-in-up">
