@@ -19,6 +19,8 @@ import { useEffect } from 'react';
 import { auth } from '@/lib/firebase';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertTriangle } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export default function LoginPage() {
   const { user, signInWithGoogle, loading } = useAuth();
@@ -54,6 +56,29 @@ export default function LoginPage() {
               </AlertDescription>
             </Alert>
           )}
+           <form className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" placeholder="m@example.com" required disabled={!isFirebaseConfigured} />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" type="password" required disabled={!isFirebaseConfigured} />
+            </div>
+            <Button type="submit" className="w-full" disabled={!isFirebaseConfigured}>
+              Login with Email
+            </Button>
+          </form>
+           <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                Or continue with
+              </span>
+            </div>
+          </div>
           <div className="space-y-4">
             <Button variant="outline" className="w-full" onClick={signInWithGoogle} disabled={!isFirebaseConfigured}>
               <GoogleIcon className="mr-2 h-5 w-5" />
@@ -64,12 +89,6 @@ export default function LoginPage() {
               Continue with Facebook
             </Button>
           </div>
-          <Separator className="my-6" />
-           <div className="text-center">
-             <p className="text-xs text-muted-foreground">
-                Phone number login and other features coming soon!
-             </p>
-           </div>
         </CardContent>
         <CardFooter className="flex justify-center">
             <p className="text-sm text-muted-foreground">
