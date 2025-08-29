@@ -109,6 +109,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'hypemagazine.co.za',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.tenor.com',
       }
     ],
   },

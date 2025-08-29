@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         uid: 'mock-user-one-uid',
         email: 'userone@example.com',
         displayName: 'UserOne',
-        photoURL: 'https://placehold.co/100x100/FFC107/FFFFFF?text=U1',
+        photoURL: 'https://media.tenor.com/K-KTshhwK4gAAAAM/kanye-kanye-weat.gif',
       } as User;
       setUser(mockUser);
       setLoading(false);
