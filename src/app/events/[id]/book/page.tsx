@@ -24,8 +24,7 @@ const ticketTiers = [
     { name: 'VIP Access', price: 450.00, description: 'Includes priority entry and exclusive lounge access.' },
 ];
 
-export default function BookingPage({ params }: BookingPageProps) {
-  const { id } = params;
+export default function BookingPage({ params: { id } }: BookingPageProps) {
   const [event, setEvent] = useState<Event | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [ticketQuantities, setTicketQuantities] = useState<Record<string, number>>({
