@@ -20,7 +20,7 @@ interface CommunityDetailsPageProps {
 }
 
 export default function CommunityDetailsPage({ params }: CommunityDetailsPageProps) {
-  const slug = params.slug;
+  const { slug } = params;
   const details = communityDetails[slug];
   const { isFollowing, toggleFollow } = useFollowing();
 
