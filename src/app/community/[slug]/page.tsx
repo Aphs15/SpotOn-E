@@ -9,9 +9,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { MessageSquare, ThumbsUp, MoreVertical, BadgeCheck, AlertTriangle, PlusCircle, Users, Check } from 'lucide-react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { communityDetails, feedPosts, communityMembers } from '@/lib/community-data';
+import { useFollowing } from '@/hooks/use-following';
 
 interface CommunityDetailsPageProps {
     params: {
@@ -22,12 +22,7 @@ interface CommunityDetailsPageProps {
 export default function CommunityDetailsPage({ params }: CommunityDetailsPageProps) {
   const slug = params.slug;
   const details = communityDetails[slug];
-
-  const [followedMembers, setFollowedMembers] = useState<Record<string, boolean>>({});
-
-  const handleFollowToggle = (memberName: string) => {
-      setFollowedMembers(prev => ({ ...prev, [memberName]: !prev[memberName] }));
-  };
+  const { isFollowing, toggleFollow } = useFollowing();
 
   if (!details) {
     notFound();
@@ -129,55 +124,58 @@ export default function CommunityDetailsPage({ params }: CommunityDetailsPagePro
                 </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                {communityMembers.map((member) => (
-                    <div key={member.name} className="flex items-center justify-between p-2 rounded-lg hover:bg-secondary/80 transition-colors">
-                        <div className="flex items-center gap-4">
-                            <Avatar>
-                                <AvatarImage src={member.image} alt={member.name} data-ai-hint={member.hint} />
-                                <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                            </Avatar>
-                            <span className="font-semibold">{member.name}</span>
-                        </div>
-                         <motion.div
-                            initial={false}
-                            animate={followedMembers[member.name] ? 'followed' : 'unfollowed'}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <Button
-                                size="sm"
-                                variant={followedMembers[member.name] ? 'default' : 'outline'}
-                                onClick={() => handleFollowToggle(member.name)}
-                                className="w-24"
+                {communityMembers.map((member) => {
+                    const following = isFollowing(member.name);
+                    return (
+                        <div key={member.name} className="flex items-center justify-between p-2 rounded-lg hover:bg-secondary/80 transition-colors">
+                            <div className="flex items-center gap-4">
+                                <Avatar>
+                                    <AvatarImage src={member.image} alt={member.name} data-ai-hint={member.hint} />
+                                    <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                                <span className="font-semibold">{member.name}</span>
+                            </div>
+                            <motion.div
+                                initial={false}
+                                animate={following ? 'followed' : 'unfollowed'}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                <AnimatePresence mode="wait">
-                                    {followedMembers[member.name] ? (
-                                        <motion.span
-                                            key="following"
-                                            initial={{ y: -20, opacity: 0 }}
-                                            animate={{ y: 0, opacity: 1 }}
-                                            exit={{ y: 20, opacity: 0 }}
-                                            transition={{ duration: 0.2 }}
-                                            className="flex items-center"
-                                        >
-                                            <Check className="mr-2 h-4 w-4" />
-                                            Following
-                                        </motion.span>
-                                    ) : (
-                                        <motion.span
-                                            key="follow"
-                                            initial={{ y: -20, opacity: 0 }}
-                                            animate={{ y: 0, opacity: 1 }}
-                                            exit={{ y: 20, opacity: 0 }}
-                                            transition={{ duration: 0.2 }}
-                                        >
-                                            Follow
-                                        </motion.span>
-                                    )}
-                                </AnimatePresence>
-                            </Button>
-                        </motion.div>
-                    </div>
-                ))}
+                                <Button
+                                    size="sm"
+                                    variant={following ? 'default' : 'outline'}
+                                    onClick={() => toggleFollow(member)}
+                                    className="w-24"
+                                >
+                                    <AnimatePresence mode="wait">
+                                        {following ? (
+                                            <motion.span
+                                                key="following"
+                                                initial={{ y: -20, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                exit={{ y: 20, opacity: 0 }}
+                                                transition={{ duration: 0.2 }}
+                                                className="flex items-center"
+                                            >
+                                                <Check className="mr-2 h-4 w-4" />
+                                                Following
+                                            </motion.span>
+                                        ) : (
+                                            <motion.span
+                                                key="follow"
+                                                initial={{ y: -20, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                exit={{ y: 20, opacity: 0 }}
+                                                transition={{ duration: 0.2 }}
+                                            >
+                                                Follow
+                                            </motion.span>
+                                        )}
+                                    </AnimatePresence>
+                                </Button>
+                            </motion.div>
+                        </div>
+                    );
+                })}
                 </CardContent>
             </Card>
         </div>

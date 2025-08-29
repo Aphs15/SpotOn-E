@@ -10,8 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { GoogleIcon, AppleWalletIcon } from '@/components/icons';
-import { followingMembers as initialFollowingMembers, joinedCommunities, userReviews } from '@/lib/community-data';
-import type { FollowingMember } from '@/lib/community-data';
+import { joinedCommunities, userReviews } from '@/lib/community-data';
 import { useAuth } from '@/hooks/use-auth';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
@@ -28,6 +27,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { useFollowing } from '@/hooks/use-following';
 
 interface Booking {
     eventId: string;
@@ -46,7 +46,7 @@ export default function ProfilePage() {
     const { savedEventIds } = useSavedEvents();
     const [allEvents, setAllEvents] = useState<Event[]>([]);
     const [isLoadingEvents, setIsLoadingEvents] = useState(true);
-    const [followingMembers, setFollowingMembers] = useState<FollowingMember[]>(initialFollowingMembers);
+    const { followingMembers, unfollowMember } = useFollowing();
 
     useEffect(() => {
         const storedBookings = localStorage.getItem('userBookings');
@@ -67,10 +67,6 @@ export default function ProfilePage() {
             router.push('/login');
         }
     }, [user, loading, router]);
-    
-    const handleUnfollow = (memberName: string) => {
-        setFollowingMembers(currentMembers => currentMembers.filter(member => member.name !== memberName));
-    };
 
     const savedEvents = allEvents.filter(event => savedEventIds.includes(event.id));
 
@@ -291,7 +287,7 @@ export default function ProfilePage() {
                                             </AlertDialogHeader>
                                             <AlertDialogFooter>
                                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                <AlertDialogAction onClick={() => handleUnfollow(member.name)}>
+                                                <AlertDialogAction onClick={() => unfollowMember(member.name)}>
                                                     Yes, Unfollow
                                                 </AlertDialogAction>
                                             </AlertDialogFooter>
