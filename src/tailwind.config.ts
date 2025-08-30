@@ -1,3 +1,4 @@
+//use Tailwind CSS for styling
 import type {Config} from 'tailwindcss';
 
 export default {
